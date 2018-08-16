@@ -30,8 +30,8 @@ void menu(void){
 		scanf("%d",&opcaoUsuarioMenu);
 		
 		if(opcaoUsuarioMenu == 1){
-			start();
 			system("cls");
+			start();
 		}else if(opcaoUsuarioMenu == 2){
 			
 		}else if(opcaoUsuarioMenu == 3){
