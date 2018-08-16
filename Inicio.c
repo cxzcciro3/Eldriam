@@ -1,4 +1,4 @@
-//Inicio 22.1
+//Inicio 0.2
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -11,6 +11,9 @@
 
 int main(){
 	
+	void menu(void);
+	
+	
 	setlocale(LC_ALL, "Portuguese");
 	menu();
 
@@ -19,6 +22,7 @@ int main(){
 void menu(void){
 	bool mantemLoopMenu = 1;
 	int opcaoUsuarioMenu = 0;	
+	void start(void);
 	
 	while(mantemLoopMenu == 1){
 		printf("********************Menu******************\n");
@@ -48,6 +52,7 @@ void start(void){
 	int sex;
 	int classe;
 	int talent;
+	void permanentSave(int sex, int classe, int talent);
 	
 	printf("****************************************\n");
 	printf("Você esta começando uma nova aventura...\n");
@@ -59,7 +64,7 @@ void start(void){
 	classe = choiceclasse();
 	talent = choiceTalent();
 	
-	permanentSave(sex, classe, talent)
+	permanentSave(sex, classe, talent);
 
 	system("pause");
 }
@@ -136,5 +141,4 @@ file = fopen("PermanentSave.txt","w");
 fprintf(file,"%d %d %d", sex, classe, talent);
 fclose(file);
 
-return 0;
 }
