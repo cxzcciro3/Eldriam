@@ -44,41 +44,41 @@ void menu(void){
 }
 
 void start(void){
-	int a;
-	int b;
-	int c;
 	int sex;
 	int talent;
-	int clssA;
-	
-	//int choiceSex(void)
-	//choiceTalent(void)
-	//choiceClssA(void);
+	int classe;
 	
 	printf("Você esta começando uma nova aventura...\n");
 	printf("antes de todo aventura e necesario preparação.\n");
 	printf("entÃ£o por favor me reponda...\n");
 
 	sex = choiceSex();
-	clssA = choiceClssA();
+	classe = choiceclasse();
 	talent = choiceTalent();
 }
 
 int choiceSex(void){
-	int a = 1, b;
-	while(a == 1){
-		printf("qual seu sexo?\n-1-male\n-2 -Female\n");
-		scanf("%d",&b);
-		if(b == 1){a = 0;return 1;}
-		else if(b == 2){a = 0;return 2;}
-		else{system("cls");}
+	int mantemLoopSex = 1; 
+	int opcaoUsuarioSex;
+	
+	while(mantemLoopSex == 1){
+		printf("\nQual seu sexo?\n-1-Male\n-2 -Female\n");
+		
+		scanf("%d",&opcaoUsuarioSex);
+		
+		if(opcaoUsuarioSex == 1){
+			return 1;
+		
+		}else if(bopcaoUsuarioSex == 2){
+			return 2;
+		}
 	}
 }
 
-int choiceClssA(void){
+int choiceclasse(void){
 	int a = 1, b;
 	while(a == 1){
-		printf("Selecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladÃ£o\n5-teplario\n");
+		printf("\nSelecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladÃ£o\n5-teplario\n");
 		scanf("%d",&b);
 		if(b == 1){a = 0;return 1;}
 		else if(b == 2){a = 0;return 2;}
