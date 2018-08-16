@@ -1,4 +1,4 @@
-//Inicio
+//Inicio 22
   //Necessario especificar qual classe será utilizada como heroi principal
   //Necessario especificar qual o sexo do perssonagem
 
