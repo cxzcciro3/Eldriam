@@ -1,9 +1,8 @@
-//Inicio
-  //Necessario especificar qual classe serÃ¡ utilizada como heroi principal
+//Inicio 22
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
-
+  
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -68,7 +67,7 @@ int choiceSex(void){
 	int opcaoUsuarioSex;
 	
 	while(mantemLoopSex == 1){
-		printf("\Selecione seu sexo?\n1-Menino\n2-Menina\n");
+		printf("\nSelecione seu sexo?\n1-Menino\n2-Menina\n");
 		
 		scanf("%d",&opcaoUsuarioSex);
 		
