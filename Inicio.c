@@ -1,4 +1,4 @@
-//Inicio 22
+//Inicio 22.1
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -46,9 +46,9 @@ void menu(void){
 
 void start(void){
 	int sex;
-	int talent;
 	int classe;
-
+	int talent;
+	
 	printf("****************************************\n");
 	printf("Você esta começando uma nova aventura...\n");
 	printf("antes de qualquer aventura é necesario preparação.\n");
@@ -59,6 +59,8 @@ void start(void){
 	classe = choiceclasse();
 	talent = choiceTalent();
 	
+	permanentSave(sex, classe, talent)
+
 	system("pause");
 }
 
@@ -125,4 +127,14 @@ int choiceTalent(void){
 			return 6;
 		}
 	}
+}
+void permanentSave(int sex, int classe, int talent){
+
+FILE *file;
+
+file = fopen("PermanentSave.txt","w");
+fprintf(file,"%d %d %d", sex, classe, talent);
+fclose(file);
+
+return 0;
 }
