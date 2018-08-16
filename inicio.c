@@ -1,11 +1,12 @@
 //Inicio 22
-  //Necessario especificar qual classe será utilizada como heroi principal
+  //Necessario especificar qual classe serÃ¡ utilizada como heroi principal
   //Necessario especificar qual o sexo do perssonagem
 
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <stdbool.h>
 
 int main(){
 	
@@ -15,54 +16,52 @@ int main(){
 }
 
 void menu(void){
-	int a = 1, b = 0;	
+	bool mantemLoopMenu = 1;
+	int opcaoUsuarioMenu = 0;	
 	
-	while(a == 1){
-		printf("-----Menu----- \n\n");
+	while(mantemLoopMenu == 1){
+		printf("********************Menu****************** \n\n");
 		printf("1-Start New Game\n");
 		printf("x2-Start Load Game\n");
 		printf("x3-Options\n");
 		printf("4-Quit\n");
-		printf("\n******************************************* \n");
+		printf("\n*******************************************\n");
 		
-		scanf("%d",&b);
+		scanf("%d",&opcaoUsuarioMenu);
 		
-		if(b == 1){
+		if(opcaoUsuarioMenu == 1){
 			start();
-		}
+			system("cls");
+		}else if(opcaoUsuarioMenu == 2){
+			
+		}else if(opcaoUsuarioMenu == 3){
 		
-		else if(b == 4){
-			a = 0;
+		}else if(opcaoUsuarioMenu == 4){
+			mantemLoopMenu = 0;
 		}
 		system("cls");
 	}
 }
 
-
 void start(void){
-	int a, b, c, sex, talent, clssA;
-	int choiceSex(void), choiceTalent(void), choiceClssA(void);
+	int a;
+	int b;
+	int c;
+	int sex;
+	int talent;
+	int clssA;
+	
+	//int choiceSex(void)
+	//choiceTalent(void)
+	//choiceClssA(void);
+	
 	printf("Você esta começando uma nova aventura...\n");
 	printf("antes de todo aventura e necesario preparação.\n");
-	printf("então por favor me reponda...\n");
+	printf("entÃ£o por favor me reponda...\n");
 
-	printf("\n");
 	sex = choiceSex();
-	
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
 	clssA = choiceClssA();
-
-	printf("\n");
-	printf("\n");
-	printf("\n");
 	talent = choiceTalent();
-
-	printf("\n");
-	printf("\n");
-	printf("\n");
 }
 
 int choiceSex(void){
@@ -79,7 +78,7 @@ int choiceSex(void){
 int choiceClssA(void){
 	int a = 1, b;
 	while(a == 1){
-		printf("Selecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladão\n5-teplario\n");
+		printf("Selecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladÃ£o\n5-teplario\n");
 		scanf("%d",&b);
 		if(b == 1){a = 0;return 1;}
 		else if(b == 2){a = 0;return 2;}
