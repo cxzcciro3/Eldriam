@@ -1,29 +1,45 @@
-//iprimir um texto pergunttar genero perguntar clase perguntar talento
+//Inicio
+  //Necessario especificar qual classe será utilizada como heroi principal
+  //Necessario especificar qual o sexo do perssonagem
+
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <locale.h>
 
 int main(){
-	int a = 1, b = 0;
-	void strat(void);
+	
+	setlocale(LC_ALL, "Portuguese");
+	menu();
+
+}
+
+void menu(void){
+	int a = 1, b = 0;	
+	
 	while(a == 1){
-		printf("---menu--- \n\n");
-		printf("1-Strat newgame \n");
-		printf("2-Strat oldgame\n");
-		printf("3-Options \n");
-		printf("4-Quit \n");
+		printf("-----Menu----- \n\n");
+		printf("1-Start New Game\n");
+		printf("x2-Start Load Game\n");
+		printf("x3-Options\n");
+		printf("4-Quit\n");
 		printf("\n******************************************* \n");
+		
 		scanf("%d",&b);
+		
 		if(b == 1){
-			strat();
+			start();
 		}
-		else if(b == 4){a = 0;}
-		else{}
+		
+		else if(b == 4){
+			a = 0;
+		}
 		system("cls");
 	}
 }
 
-void strat(void){
+
+void start(void){
 	int a, b, c, sex, talent, clssA;
 	int choiceSex(void), choiceTalent(void), choiceClssA(void);
 	printf("Você esta começando uma nova aventura...\n");
@@ -36,7 +52,7 @@ void strat(void){
 	printf("\n");
 	printf("\n");
 	printf("\n");
-	printf(" \n");
+	printf("\n");
 	clssA = choiceClssA();
 
 	printf("\n");
