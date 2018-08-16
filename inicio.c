@@ -1,6 +1,8 @@
-//Inicio 22
+//Inicio
   //Necessario especificar qual classe serÃ¡ utilizada como heroi principal
   //Necessario especificar qual o sexo do perssonagem
+  //Necessario especificar qual o classe do perssonagem
+  //Necessario especificar qual o talento do perssonagem
 
 #include <stdio.h>
 #include <time.h>
@@ -20,12 +22,12 @@ void menu(void){
 	int opcaoUsuarioMenu = 0;	
 	
 	while(mantemLoopMenu == 1){
-		printf("********************Menu****************** \n\n");
+		printf("********************Menu******************\n");
 		printf("1-Start New Game\n");
 		printf("x2-Start Load Game\n");
 		printf("x3-Options\n");
 		printf("4-Quit\n");
-		printf("\n*******************************************\n");
+		printf("*******************************************\n");
 		
 		scanf("%d",&opcaoUsuarioMenu);
 		
@@ -47,14 +49,18 @@ void start(void){
 	int sex;
 	int talent;
 	int classe;
-	
-	printf("Você esta começando uma nova aventura...\n");
-	printf("antes de todo aventura e necesario preparação.\n");
-	printf("entÃ£o por favor me reponda...\n");
 
+	printf("****************************************\n");
+	printf("Você esta começando uma nova aventura...\n");
+	printf("antes de qualquer aventura é necesario preparação.\n");
+	printf("eentão por favor me reponda...\n");
+	printf("*******************************************\n");
+		
 	sex = choiceSex();
 	classe = choiceclasse();
 	talent = choiceTalent();
+	
+	system("pause");
 }
 
 int choiceSex(void){
@@ -62,44 +68,62 @@ int choiceSex(void){
 	int opcaoUsuarioSex;
 	
 	while(mantemLoopSex == 1){
-		printf("\nQual seu sexo?\n-1-Male\n-2 -Female\n");
+		printf("\Selecione seu sexo?\n1-Menino\n2-Menina\n");
 		
 		scanf("%d",&opcaoUsuarioSex);
 		
 		if(opcaoUsuarioSex == 1){
 			return 1;
 		
-		}else if(bopcaoUsuarioSex == 2){
+		}else if(opcaoUsuarioSex == 2){
 			return 2;
 		}
 	}
 }
 
 int choiceclasse(void){
-	int a = 1, b;
-	while(a == 1){
-		printf("\nSelecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladÃ£o\n5-teplario\n");
-		scanf("%d",&b);
-		if(b == 1){a = 0;return 1;}
-		else if(b == 2){a = 0;return 2;}
-		else if(b == 3){a = 0;return 3;}
-		else if(b == 4){a = 0;return 4;}
-		else if(b == 5){a = 0;return 55;}
-		else{system("cls");}
+	int mantemLoopClasse = 1;
+	int opcaoUsuarioClass;
+	
+	while(mantemLoopClasse == 1){
+		printf("\nSelecione sua classe:\n1-Guerreiro\n2-Arqueiro\n3-Mago\n4-Ladrão\n5-Templario\n");
+		scanf("%d",&opcaoUsuarioClass);
+		
+		if(opcaoUsuarioClass == 1){
+			return 1;
+		}else if(opcaoUsuarioClass == 2){
+			return 2;
+		}else if(opcaoUsuarioClass == 3){
+			return 3;
+		}else if(opcaoUsuarioClass == 4){
+			return 4;
+		}else if(opcaoUsuarioClass == 5){
+			return 5;
+		}
 	}
 }
 
 int choiceTalent(void){
-	int a = 1, b;
-	while(a == 1){
-		printf("\n");
-		scanf("%d",&b);
-		if(b == 1){a = 0;return 1;}
-		else if(b == 2){a = 0;return 2;}
-		else if(b == 3){a = 0;return 3;}
-		else if(b == 4){a = 0;return 4;}
-		else if(b == 5){a = 0;return 5;}
-		else if(b == 6){a = 0;return 6;}
-		else{system("cls");}
+	int mantemLoopTalento = 1;
+	int opcaoUsuarioTalento;
+
+	while(mantemLoopTalento == 1){
+		printf("\nSelecione seu talento:\n1-Fogo\n2-Agua\n3-Vento\n4-Luz\n5-Trevas\n");
+		
+		scanf("%d",&opcaoUsuarioTalento);
+		
+		if(opcaoUsuarioTalento == 1){
+			return 1;
+		}else if(opcaoUsuarioTalento == 2){
+			return 2;
+		}else if(opcaoUsuarioTalento == 3){
+			return 3;
+		}else if(opcaoUsuarioTalento == 4){
+			return 4;
+		}else if(opcaoUsuarioTalento == 5){
+			return 5;
+		}else if(opcaoUsuarioTalento == 6){
+			return 6;
+		}
 	}
 }
