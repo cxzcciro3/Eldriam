@@ -17,7 +17,7 @@ int main(){
 		if(b == 1){
 			strat();
 		}
-		else if(b == 3){a = 0;}
+		else if(b == 4){a = 0;}
 		else{}
 		system("cls");
 	}
@@ -26,9 +26,9 @@ int main(){
 void strat(void){
 	int a, b, c, sex, talent, clssA;
 	int choiceSex(void), choiceTalent(void), choiceClssA(void);
-	printf("Você esta começando uma nova aventura...\n");
-	printf("antes de todo aventura e necesario preparação.\n");
-	printf("então por favor me reponda...\n");
+	printf("VocÃª esta comeÃ§ando uma nova aventura...\n");
+	printf("antes de todo aventura e necesario preparaÃ§Ã£o.\n");
+	printf("entÃ£o por favor me reponda...\n");
 
 	printf("\n");
 	sex = choiceSex();
@@ -63,7 +63,7 @@ int choiceSex(void){
 int choiceClssA(void){
 	int a = 1, b;
 	while(a == 1){
-		printf("Selecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladão\n5-teplario\n");
+		printf("Selecione ua classe:\n1-gerreiro\n2-arqueiro\n3-mago\n4-ladÃ£o\n5-teplario\n");
 		scanf("%d",&b);
 		if(b == 1){a = 0;}
 		else if(b == 2){a = 0;}
