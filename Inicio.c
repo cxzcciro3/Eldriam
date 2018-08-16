@@ -1,4 +1,4 @@
-//Inicio 0.2
+//Inicio 0.3
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -37,6 +37,7 @@ void menu(void){
 		if(opcaoUsuarioMenu == 1){
 			system("cls");
 			start();
+			mantemLoopMenu = 0;
 		}else if(opcaoUsuarioMenu == 2){
 			
 		}else if(opcaoUsuarioMenu == 3){
@@ -53,6 +54,7 @@ void start(void){
 	int classe;
 	int talent;
 	void permanentSave(int sex, int classe, int talent);
+	void characterSave(int classe);
 	
 	printf("****************************************\n");
 	printf("Você esta começando uma nova aventura...\n");
@@ -65,7 +67,8 @@ void start(void){
 	talent = choiceTalent();
 	
 	permanentSave(sex, classe, talent);
-
+	characterSave(classe);
+	
 	system("pause");
 }
 
@@ -141,4 +144,28 @@ file = fopen("PermanentSave.txt","w");
 fprintf(file,"%d %d %d", sex, classe, talent);
 fclose(file);
 
+}
+void characterSave(int classe){
+	FILE *file;
+
+	file = fopen("CharacterSave.txt","w");
+
+	if(classe == 1){
+		fprintf(file,"5 3 3 5 1 1 \n");
+		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
+	}else if(classe == 2){
+		fprintf(file,"2 4 6 1 2 2 \n");
+		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
+	}else if(classe == 3){
+		fprintf(file,"1 2 4 2 6 4 \n");
+		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
+	}else if(classe == 4){
+		fprintf(file,"4 6 3 2 2 2 \n");
+		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
+	}else if(classe == 5){
+		fprintf(file,"2 1 2 3 3 6 \n");
+		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
+	}
+	
+	fclose(file);
 }
