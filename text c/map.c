@@ -41,19 +41,31 @@ int main(){
 			scanf("%d", &escolha);
 
 			if(escolha == 1){
-			y = y - 1;
+				y = y - 1;
 			}
 			else if(escolha == 2){
-			x = x + 1;
+				x = x + 1;
 			}
 			else if(escolha == 3){
-			x = x - 1;
+				x = x - 1;
 			}
 			else if(escolha == 4){
-			y = y + 1;
+				y = y + 1;
 			}
 			else{
-			escolhaExit = 0;
+				escolhaExit = 0;
+			}
+			if(x < 0){
+				x = x + 1;
+			}
+			if(y < 0){
+				y = y + 1;	
+			}
+			if(x > 4){
+				x = x - 1;
+			}
+			if(y > 4){
+				y = y - 1;
 			}
 		system("cls");
 		}
