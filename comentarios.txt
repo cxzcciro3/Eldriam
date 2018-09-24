@@ -1,0 +1,140 @@
+for dano fisico armas pesadas
+agi esquiva volocidas 
+dex dano fisico armas leves
+com devesa peso de armadura
+int dano magico 
+sab quanridade de magias total e por dia, ceirico
+
+dano = ((dano da arma + 0.3* for + 0.2* dex + for * escala da arma de for + dex * escala da arma de dex)* dano bonus% + dano bonus real ) * (100 - armor inmigo)
+armadura = (armarda da armadura * com + armarda da armadura * (agi * 0.1) +  armarda da armadura * (for * 0.1)) * bonus% + bonus real
+vida = (10 + 5*com + lv) + (10 + 5*com + lv) * (com * 0.1) + bonus
+velocidade = (100 + agi + itens - itens) * bonus
+
+
+1-Guerreiro
+for 5
+agi 3
+dex 3
+com 5
+int 1
+sab 1
+2-Arqueiro
+for 2
+agi 4
+dex 6
+com 1
+int 2
+sab 2
+3-Mago
+for 1
+agi 2
+dex 4
+com 2
+int 6
+sab 4
+4-Ladrão
+for 4
+agi 6
+dex 3
+com 2
+int 2
+sab 2
+5-Templario
+for 2
+agi 1
+dex 2
+com 3
+int 3
+sab 6
+
+
+itens
+
+Armas
+1 espada curta 30 50 - 20
+2 machete -  20 75 - 10
+3 vara 5 100 - 30
+4 adaga 15 80 - 0
+5 porrete 25 40 - 30
+6 espada  75 60 - 30
+7 espada longa 100 70 - 40
+8 maca 80 50 - 40
+9 cajado 10 0 - 30
+10 katana 100 60 - 30
+11 arco 50 60 - 20
+12 adaga de vidro 300 10 - 10
+13 espada de chamas 150 80 - 20 
+14 machado 150 50  - 40
+15 machado de gerra 300 50 - 60
+
+capacete
+
+1 elmo 5 - 5
+2 chapel de arqueiro 2
+3 chapel pontudo 2 - 2
+4 mascara de ladão 2
+5 cape 3
+6 elmo brilhante 15 - 5
+7 elmo dourado 16 - 10
+8 mascara de assassino 5 + 1
+9 gorro 3 
+10 cartola 3
+11 capachete pesado 20 - 15
+12 coroa de fogo 10
+13 diadema 4
+14 bandana 2 + 1
+15 diadema solar 7 + 5
+
+armadura
+
+1 armadura 10 - 10
+2 armadura couro 5 - 2
+3 trage de mago 3 
+4 armadura couro preto 5
+5 armadura de malha 7 - 5
+6 armadura solar 20 - 15
+7 armadura lunar 15 - 5
+8 trage de assassino - 10 + 5
+9 armadura dourada 20 - 20
+10 manto negro 5 
+11 armadura brilhante 15 - 10
+12 armadura alada 15
+13 trage de mago ancião 5
+14 trage carmesim 5
+15 armadura lunar couro preto 10 + 15
+
+luvas
+
+1 luvas de gerreiro 5 - 5
+2 luvas magicas  1 - 0
+3 luvas de couro 2 - 0
+4 luvas de couro preto 2 + 1
+5 luvas de malha 3 - 3
+6 luvas de armadura solar 10 - 5
+7 luvas de armadura lunar 7 - 0
+8 luvas de assassino 3 + 1
+9 luvas lunares de couro 5 + 5
+10 lucas de armadura durada 10 - 10
+11 luvas da escurião 3 - 0
+12 luvas de mago ancião 2 - 0
+13 luvas carmesim 2 - 0
+14 luvas laminadas 4 - 1
+15 brasadeiras de anjo caido 20 - 25
+
+botas
+
+1 grevas 5 - 5
+2 sapatos magicos 1 - 0
+3 botas de couro 2 - 0
+4 botas de couro preto 2 + 1
+5 botas de malha 3 - 3
+6 grevas solares 10 - 5
+7 grevas luares 7 - 0
+8 botas de assassino 3 + 3
+9 botas da escurião 3 - 0
+10 botas aladas 4 + 5
+11 botas lunares 5 + 6
+12 botas carmesim 3 - 0
+13 grevas douradas 10 - 7
+14 botas laminadas 5 - 2
+15 grevas bliantes 7 - 5
