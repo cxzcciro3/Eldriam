@@ -1,4 +1,4 @@
-//Inicio 0.3
+//Inicio 0.5
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -167,5 +167,193 @@ void characterSave(int classe){
 		fprintf(file,"%d %d %d %d %d",classe, classe, classe, classe, classe);
 	}
 	
+	fclose(file);
+}
+void calculoDano(void){
+	int i;
+	int lixo; 
+	int arma;
+	int forca;
+	int dexteza;
+	int danoArma; 
+	int cadencia;
+	int danoMaximo;
+	int danoMinimo;
+
+	FILE *file;
+	file = fopen("CharacterSave.txt","r");
+	fscanf(file,"%d",forca);
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",dexteza);
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",arma);
+	fclose(file);
+	if(arma == 1){danoArma = 30;cadencia = 50;}
+	else if(arma == 2){danoArma = 20;cadencia = 75;}
+	else if(arma == 3){danoArma = 5;cadencia = 100;}
+	else if(arma == 4){danoArma = 15;cadencia = 80;}
+	else if(arma == 5){danoArma = 25;cadencia = 40;}
+	else if(arma == 6){danoArma = 75;cadencia = 60;}
+	else if(arma == 7){danoArma = 100;cadencia = 70;}
+	else if(arma == 8){danoArma = 80;cadencia = 50;}
+	else if(arma == 9){danoArma = 10;cadencia = 100;}
+	else if(arma == 10){danoArma = 100;cadencia = 60;}
+	else if(arma == 11){danoArma = 50;cadencia = 60;}
+	else if(arma == 12){danoArma = 300;cadencia = 10;}
+	else if(arma == 13){danoArma = 150;cadencia = 80;}
+	else if(arma == 14){danoArma = 150;cadencia = 50;}
+	else if(arma == 15){danoArma = 300;cadencia = 50;}
+	else{danoArma = 0;cadencia = 50;}
+	danoMaximo = danoArma + (forca * 0.2) + (dexteza * 0.2);
+	danoMinimo = (danoArma * cadencia)/100;
+
+	file = fopen("danoSave.txt","w");
+	fprintf(file,"%d %d", danoMaximo, danoMinimo);
+	fclose(file);
+}
+int calculoArmadura(void){
+	int a = 0;
+	int b = 5;
+	int lixo;
+	int forca;
+	int agilidade;
+	int constituicao;
+	int capacete;
+	int armadura;
+	int luvas;
+	int botas;
+	int capaceteV;
+	int armaduraV;
+	int luvasV;
+	int botasV;
+	int capaceteA;
+	int armaduraA;
+	int luvasA;
+	int botasA;
+
+	
+	FILE *file;
+	file = fopen("CharacterSave.txt","r");
+	
+	fclose(file);
+
+
+	file = fopen("Capacete.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",capaceteA);
+	fscanf(file,"%d",capaceteV);
+	a = 0;
+	fclose(file);
+
+	file = fopen("Armadura.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",armaduraA);
+	fscanf(file,"%d",armaduraV);
+	a = 0;
+	fclose(file);
+
+	file = fopen("Luvas.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",luvasA);
+	fscanf(file,"%d",luvasV);
+	a = 0;
+	fclose(file);
+
+	file = fopen("Botas.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",botasA);
+	fscanf(file,"%d",botasV);
+	fclose(file);
+}
+int calculoVida(void){
+	FILE *file;
+	file = fopen("CharacterSave.txt","r");
+	fclose(file);
+}
+int calculoVelocidade(void){
+	int a = 0;
+	int b = 5;
+	int lixo; 
+	int capaceteV;
+	int armaduraV;
+	int luvasV;
+	int botasV; 
+	int armaV; 
+
+	FILE *file;
+	file = fopen("CharacterSave.txt","w");
+	fclose(file);
+	file = fopen("Armas.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",armaV);
+	fscanf(file,"%d",lixo);
+	a = 0;
+	fclose(file);
+	
+	file = fopen("Capacete.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",capaceteV);
+	a = 0;
+	fclose(file);
+
+	file = fopen("Armadura.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",armaduraV);
+	a = 0;
+	fclose(file);
+
+	file = fopen("Luvas.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",luvasV);
+	a = 0;
+	fclose(file);
+	
+	file = fopen("Botas.txt","r");
+	while(a < b){
+		fscanf(file,"%d",lixo);
+		fscanf(file,"%d",lixo);
+		a = a + 1;
+	}
+	fscanf(file,"%d",lixo);
+	fscanf(file,"%d",botasV);
 	fclose(file);
 }
