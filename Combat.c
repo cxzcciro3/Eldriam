@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <locale.h>
 
-//0.2
+//0.3
 int main(){
 
 	setlocale(LC_ALL, "Portuguese");
@@ -69,11 +69,15 @@ int main(){
 				
 		}
 		if(selecionado == 1){
+			system("cls");
 			strat();
+			selecionado = 0;
 		}
 		else if(selecionado == 2){
+			system("cls");
 			printf("Opcaos\nNo momento não há opções\n");
 			system("pause");
+			selecionado = 0;
 		}
 		else if(selecionado == 3){
 			manterMenu = 0;
@@ -90,9 +94,97 @@ int main(){
 // -
 
 void strat(void){
+	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+
+	int manterMenu = 1;
+	int selecionado = 0;
+	int selecao = 1;
+	char escolha;
+	
+	while(manterMenu == 1){
+	printf("Selecione sua classe\n\n");
+		if(selecao == 1){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("Mestre\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("Mestre\n");
+		}
+		if(selecao == 2){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("Cavaleiro\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("Cavaleiro \n");
+		}
+		if(selecao == 3){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("Bruxo\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("Bruxo \n");
+		}
+		if(selecao == 4){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("Aqueiro\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("Aqueiro\n");
+		}
+		if(selecao == 5){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("Assassino\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("Assassino \n");
+		}
+
+		printf("\n******************************************* \n");
+		
+
+		escolha = getch();
+   			
+
+		if(escolha == 'w' && selecao > 1){
+			selecao = selecao - 1;
+		}
+		else if(escolha == 's' && selecao < 5){
+			selecao = selecao + 1;
+		}
+		else if(escolha == 32){
+			selecionado = selecao;
+		}
+		else{
+				
+		}
+		if(selecionado == 1){
+			manterMenu = 0;
+		}
+		else if(selecionado == 2){
+			manterMenu = 0;
+		}
+		else if(selecionado == 3){
+			manterMenu = 0;
+		}
+		else{
+		
+		}
+		system("cls");
+	}
+
 	srand(time(NULL));
 	int a = 1, b = 0, c = 1;
-	int batHP1 = 50, batHP2 = 50, HP = 200, danoEspada, danoEscudo, danoBat1, danoBat2, dano, escolha;
+	int batHP1 = 50, batHP2 = 50, HP = 200, danoEspada, danoEscudo, danoBat1, danoBat2, dano;
 	while(a == 1){
 		printf("-- \n");
 		printf("hp: %d \n",HP);
@@ -180,4 +272,3 @@ void strat(void){
 	}
 
 }
-
