@@ -1,0 +1,7 @@
+--id_monstro,nome_monstro,vida_monstro,velocidade;
+--velocidade quando 1 realiza ataque, quando 0 nao realiza ataque
+0,morcego,100,1;
+1,lobo,100,1;
+2,slime,100,1;
+3,goblin,100,1;
+4,zumbi,100,1;
