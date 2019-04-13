@@ -1,0 +1,12 @@
+--id_habilidade,nome_habilidade,dano_habilidade_min,dano_habilidade_max,atributo_habilidade;
+--atributo=(0=sem_atributo,1=fogo,2=ar,3=agua,4=terra);
+0,hadukeeeeeeeen!,100,100,0;
+1,soco,0,5,0;
+2,bola_fogo,0,5,1;
+3,ventania,0,5,2;
+4,bomba_d_agua,0,5,3;
+5,furia_da_terra,0,5,4;
+6,investida,0,5,0;
+7,bicuta,0,5,0;
+8,bater_com_escudo,0,5,0;
+9,ataque_por_tras,0,5,0;
