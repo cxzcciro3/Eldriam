@@ -1,4 +1,4 @@
-//Inicio 0.9
+//Inicio 0.11
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -667,7 +667,9 @@ InfomacoesDoPersonagem(){
 	int dano;
 	int defesa;
 	int velocidade;
+	
 
+	FILE *file;
 	file = fopen("CharacterSave.txt","r");
 	fscanf(file,"%d",&vida);
 	fclose(file);
@@ -706,15 +708,73 @@ InfomacoesDoPersonagem(){
 }
 
 
+void DecidirCombate(void){
+	
+}
+
 void strat(void){
 	srand(time(NULL));
 	int a = 1, b = 0, c = 1;
-	int mostroHP1 , mostroHP2, mostroHP3, mostroHP4, HP, danoEspada, danoEscudo, danomostro1, danomostro2, danomostro3, danomostro4, dano, escolha;
+
+	int i = 0, x = 0, y = 0;
+   	srand(time(NULL));
+
+	int mostroHP1;
+	int mostroHP2;
+	int mostroHP3;
+	int mostroHP4;
+
+	int danoMostroMinimo1;
+	int danoMostroMinimo2;
+	int danoMostroMinimo3;
+	int danoMostroMinimo4;
+
+	int danoMostroMaximo1;
+	int danoMostroMaximo2;
+	int danoMostroMaximo3;
+	int danoMostroMaximo4;
+
+	int danoMostro1;
+	int danoMostro2;
+	int danoMostro3;
+	int danoMostro4;
+
+	char nomeMostro1[20];
+	char nomeMostro2[20];
+	char nomeMostro3[20];
+	char nomeMostro4[20];
+
+	int HP;
+	int HPMaximo;
+	int dano;
+	int danoMinimo;
+	int danoMaximo;
+	int defesa;
+	int escolha;
+	int velocidade;
+	int exp;
+	int newExp;
+	
+
+	
+	FILE *file;
+	file = fopen("CharacterSave.txt","r");
+	fclose(file);
+	file = fopen("CharacterSave.txt","r");
+	fclose(file);
+	file = fopen("CharacterSave.txt","r");
+	fclose(file);
+	file = fopen("CharacterSave.txt","r");
+	fclose(file);
+
 	while(a == 1){
 		printf("-- \n");
-		printf("hp: %d \n",HP);
-		printf("1- espada: 4 - 10 \n");
-		printf("2- escudo 50%  2-6 \n");
+		printf("hp: %d / \n",HP, HPMaximo);
+		printf("1- atacar: 4 - 10 \n");
+		printf("2- defender 50%  \n");
+		printf("3- magia \n");
+		printf("4- inventario \n");
+		printf("5- fugir \n");
 		printf(" \n");
 		scanf("%d", &b);
 		c = 1;
@@ -722,28 +782,59 @@ void strat(void){
 		while(c == 1){
 			c = 0;
 			
+			while(i<1000){
+				if(i > 0){
+					i = i + ;
+				}
+		
+				system("cls");
+				printf("%d\n",i);
+				printf("[");
+				x = 0;
+    				while(x<i && x<1000){
+    					if((i-x)>99){
+    						printf("*");
+					}
+    				x=x+100;
+				}
+				x = 1000;
+				while(x>i){
+    					printf(" ");
+    					x=x-100;
+				}
+				printf("]");
+  				Sleep(500);
+  		
+  				if(i == 0){
+					i = i + ;
+				}
+  			}
+
+			danoMostro1 =(rand() %(danoMostroMaximo1 - danoMostroMinimo1)) + danoMostroMinimo1;
+			danoMostro2 =(rand() %(danoMostroMaximo2 - danoMostroMinimo2)) + danoMostroMinimo2;
+			danoMostro3 =(rand() %(danoMostroMaximo3 - danoMostroMinimo3)) + danoMostroMinimo3;
+			danoMostro4 =(rand() %(danoMostroMaximo4 - danoMostroMinimo4)) + danoMostroMinimo4;
+
 			if(b == 1){
 				danoEspada = (rand() %7) + 4;
 				dano = danoEspada;
 
-				danoBat1 =(rand() %3) + 2;
-				danoBat2 =(rand() %3) + 2;
 				
-				if(batHP1 > 0){HP = HP - danoBat1;}
-				if(batHP2 > 0){HP = HP - danoBat2;}
+				if(mostroHP1 > 0){HP = HP - danoMostro1;}
+				if(mostroHP2 > 0){HP = HP - danoMostro2;}
+				if(mostroHP3 > 0){HP = HP - danoMostro3;}
+				if(mostroHP4 > 0){HP = HP - danoMostro4;}
 				c = 0;
 			}
 
 		
 			else if(b == 2){ 
-				danoEscudo = (rand() %5) + 2;
-				dano = danoEscudo;
+				
 
-				danoBat1 =(rand() %2) + 1;
-				danoBat2 =(rand() %2) + 1;
-
-				if(batHP1 > 0){HP = HP - danoBat1;}
-				if(batHP2 > 0){HP = HP - danoBat2;}
+				if(mostroHP1 > 0){HP = HP - (danoMostro1 / 2);}
+				if(mostroHP2 > 0){HP = HP - (danoMostro2 / 2);}
+				if(mostroHP3 > 0){HP = HP - (danoMostro3 / 2);}
+				if(mostroHP4 > 0){HP = HP - (danoMostro4 / 2);}
 				c = 0;	
 			}
 			
@@ -755,32 +846,50 @@ void strat(void){
 			c = 1;
 			while(c == 1){
 					
-				if(batHP1 > 0){printf("1- bat: %d \n",batHP1);}else{printf("1- bat: 0\n");}
-				if(batHP2 > 0){printf("2- bat: %d \n",batHP2);}else{printf("2- bat: 0\n");}
+				if(mostroHP1 > 0){printf("1- %s: %d hp\n",nomeMostro1, mostroHP1);}else{printf("1- %s: 0\n",nomeMostro1);}
+				if(mostroHP2 > 0){printf("2- %s: %d hp\n",nomeMostro2, mostroHP2);}else{printf("2- %s: 0\n",nomeMostro2);}
+				if(mostroHP3 > 0){printf("2- %s: %d hp\n",nomeMostro3, mostroHP3);}else{printf("3- %s: 0\n",nomeMostro3);}
+				if(mostroHP4 > 0){printf("2- %s: %d hp\n",nomeMostro4, mostroHP4);}else{printf("4- %s: 0\n",nomeMostro4);}
 				scanf("%d",&b);
 
 				danoEspada = (rand() %7) + 4;
-				if(b == 1 && batHP1 > 0){
+				if(b == 1 && mostroHP1 > 0){
 					escolha = 1;
-					batHP1 = batHP1 - dano;
+					mostroHP1 = mostroHP1 - dano;
 					c = 0;
 				}
-				else if(b == 2 && batHP2 > 0){
+				else if(b == 2 && mostroHP2 > 0){
 					escolha = 2;
-					batHP2 = batHP2 - dano;
+					mostroHP1 = mostroHP1 - dano;
 					c = 0;
 				}
-				else if(batHP2 < 0 && batHP2 < 0 ){c = 0;}
+				else if(b == 3 && mostroHP3 > 0){
+					escolha = 3;
+					mostroHP1 = mostroHP1 - dano;
+					c = 0;
+				}
+				else if(b == 4 && mostroHP4 > 0){
+					escolha = 4;
+					mostroHP1 = mostroHP1 - dano;
+					c = 0;
+				}
+				else if(mostroHP1 < 0 && mostroHP2 < 0 && mostroHP3 < 0 && mostroHP4 < 0 ){c = 0;}
 				else{system("cls");}
 			}
 
 
 	
 		system("cls");
-		if(batHP1 > 0){printf("bat1 dano: %d \n",danoBat1);}
-		if(batHP2 > 0){printf("bat2 dano: %d \n",danoBat2);}
-		if(escolha == 1){printf("voce causou %d de na em Bat1 ele tem %d agora\n ", dano, batHP1);}
-		if(escolha == 2){printf("voce causou %d de na em Bat2 ele tem %d agora\n ", dano, batHP2);}
+		if(mostroHP1 > 0){printf("%s dano: %d \n",nomeMostro1,danoMostro1);}
+		if(mostroHP2 > 0){printf("%s dano: %d \n",nomeMostro2,danoMostro2);}
+		if(mostroHP3 > 0){printf("%s dano: %d \n",nomeMostro3,danoMostro3);}
+		if(mostroHP4 > 0){printf("%s dano: %d \n",nomeMostro4,danoMostro4);}
+
+
+		if(escolha == 1){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro1, mostroHP1);}
+		if(escolha == 2){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro2, mostroHP2);}
+		if(escolha == 3){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro3, mostroHP3);}
+		if(escolha == 4){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro4, mostroHP4);}
 		system("pause");
 		system("cls");
 
