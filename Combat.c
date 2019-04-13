@@ -1,22 +1,86 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <windows.h>
+#include <conio.h>
+#include <locale.h>
 
+//0.2
 int main(){
-	int a = 1, b = 0;
+
+	setlocale(LC_ALL, "Portuguese");
+
+	//cores - parte do codigo que fine funcionalidade das cores no windows
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	
+	int manterMenu = 1;
+	int selecionado = 0;
+	int selecao = 1;
+	char escolha;
 	void strat(void);
-	while(a == 1){
+	while(manterMenu == 1){
+
 		printf("---menu--- \n\n");
-		printf("1-Strat \n");
-		printf("2-Options \n");
-		printf("3-Quit \n");
+		if(selecao == 1){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("1-Strat \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("1-Strat \n");
+		}
+		if(selecao == 2){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("2-Options \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("2-Options \n");
+		}
+		if(selecao == 3){
+			SetConsoleTextAttribute(hConsole, 3);
+			printf("3-Quit \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+		}
+		else{
+			printf("3-Quit \n");
+		}
+
 		printf("\n******************************************* \n");
-		scanf("%d",&b);
-		if(b == 1){
+		
+
+		escolha = getch();
+   			
+
+		if(escolha == 'w' && selecao > 1){
+			selecao = selecao - 1;
+		}
+		else if(escolha == 's' && selecao < 3){
+			selecao = selecao + 1;
+		}
+		else if(escolha == 32){
+			selecionado = selecao;
+		}
+		else{
+				
+		}
+		if(selecionado == 1){
 			strat();
 		}
-		else if(b == 3){a = 0;}
-		else{}
+		else if(selecionado == 2){
+			printf("Opcaos\nNo momento não há opções\n");
+			system("pause");
+		}
+		else if(selecionado == 3){
+			manterMenu = 0;
+		}
+		else{
+		
+		}
 		system("cls");
 	}
 }
@@ -116,3 +180,4 @@ void strat(void){
 	}
 
 }
+
