@@ -5,7 +5,8 @@
 #include <conio.h>
 #include <locale.h>
 
-//0.3
+//0.5
+int cor = 3;
 int main(){
 
 	setlocale(LC_ALL, "Portuguese");
@@ -26,29 +27,21 @@ int main(){
 
 		printf("---menu--- \n\n");
 		if(selecao == 1){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("1-Strat \n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("1-Strat \n");
-		}
+		printf("1-Strat \n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 2){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("2-Options \n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("2-Options \n");
-		}
+		printf("2-Options \n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 3){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("3-Quit \n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("3-Quit \n");
-		}
+		printf("3-Quit \n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
+		
 
 		printf("\n******************************************* \n");
 		
@@ -109,45 +102,30 @@ void strat(void){
 	while(manterMenu == 1){
 	printf("Selecione sua classe\n\n");
 		if(selecao == 1){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("Mestre\n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("Mestre\n");
-		}
+		printf("Mestre\n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 2){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("Cavaleiro\n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("Cavaleiro \n");
-		}
+		printf("Cavaleiro \n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 3){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("Bruxo\n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
-			printf("Bruxo \n");
-		}
+		printf("Bruxo \n");
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 4){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("Aqueiro\n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
 			printf("Aqueiro\n");
-		}
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 		if(selecao == 5){
-			SetConsoleTextAttribute(hConsole, 3);
-			printf("Assassino\n");
-			SetConsoleTextAttribute(hConsole, saved_attributes);
+			SetConsoleTextAttribute(hConsole, cor);
 		}
-		else{
 			printf("Assassino \n");
-		}
+		SetConsoleTextAttribute(hConsole, saved_attributes);
 
 		printf("\n******************************************* \n");
 		
@@ -176,86 +154,170 @@ void strat(void){
 		else if(selecionado == 3){
 			manterMenu = 0;
 		}
+		else if(selecionado == 4){
+			manterMenu = 0;
+		}
+		else if(selecionado == 5){
+			manterMenu = 0;
+		}
 		else{
 		
 		}
 		system("cls");
 	}
-
+	
+	printf("este é um protrotico de um sitem de com bate para um jogo\nPresione qualquer botão para continuar");
+	escolha = getch();
+	system("cls");
+	// define os estatos dos invouvidos no combate
 	srand(time(NULL));
 	int a = 1, b = 0, c = 1;
-	int batHP1 = 50, batHP2 = 50, HP = 200, danoEspada, danoEscudo, danoBat1, danoBat2, dano;
+	int MostroHP1 = 50, MostroHP2 = 50, HP = 200, danoEspada, danoEscudo, danoBat1, danoBat2, dano, acao, alvo;
+	// -
 	while(a == 1){
-		printf("-- \n");
-		printf("hp: %d \n",HP);
-		printf("1- espada: 4 - 10 \n");
-		printf("2- escudo 50%  2-6 \n");
-		printf(" \n");
-		scanf("%d", &b);
-		c = 1;
-		system("cls");
-		while(c == 1){
-			c = 0;
+		manterMenu = 1;
+		selecionado = 0;
+		selecao = 1;
+		while(manterMenu == 1){
+			printf("-- \n");
+			printf("hp: %d \n",HP);
+			if(selecao == 1){
+				SetConsoleTextAttribute(hConsole, cor);
+			}
+			printf(" Atacar\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			if(selecao == 2){
+				SetConsoleTextAttribute(hConsole, cor);
+			}
+			printf(" Defender\n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			if(selecao == 3){
+				SetConsoleTextAttribute(hConsole, cor);
+			}
+			printf(" Magia \n");
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			printf(" \n");
 			
-			if(b == 1){
-				danoEspada = (rand() %7) + 4;
-				dano = danoEspada;
+			escolha = getch();
+   			
 
-				danoBat1 =(rand() %3) + 2;
-				danoBat2 =(rand() %3) + 2;
+			if(escolha == 'w' && selecao > 1){
+				selecao = selecao - 1;
+			}
+			else if(escolha == 's' && selecao < 3){
+				selecao = selecao + 1;
+			}
+			else if(escolha == 32){
+				selecionado = selecao;
+			}
+			else{
 				
-				if(batHP1 > 0){HP = HP - danoBat1;}
-				if(batHP2 > 0){HP = HP - danoBat2;}
-				c = 0;
 			}
-
+			if(selecionado == 1){
+				manterMenu = 0;
+				acao = 1;
+			}
+			else if(selecionado == 2){
+				manterMenu = 0;
+				acao = 2;
+			}
+			else if(selecionado == 3){
+				printf("Esta opção não esta desponivel no momento\n");
+				escolha = getch();
+				
+			}
+			else{
 		
-			else if(b == 2){ 
-				danoEscudo = (rand() %5) + 2;
-				dano = danoEscudo;
-
-				danoBat1 =(rand() %2) + 1;
-				danoBat2 =(rand() %2) + 1;
-
-				if(batHP1 > 0){HP = HP - danoBat1;}
-				if(batHP2 > 0){HP = HP - danoBat2;}
-				c = 0;	
 			}
-			
-
-			else{c = 1;}
-
+			system("cls");
 		}
 
-			c = 1;
-			while(c == 1){
+		c = 1;
+		system("cls");
+
+		dano = (rand() %7) + 4;
+		danoBat1 =(rand() %3) + 2;
+		danoBat2 =(rand() %3) + 2;
+		if(selecionado == 2){
+			danoBat1 = danoBat1 / 2;
+			danoBat2 = danoBat2 / 2;
+		}
+		if(selecionado == 1){
+			selecionado = 0;
+			selecao = 1;
+			manterMenu = 1;
+			while(manterMenu == 1){
+				printf("Escolha seu alvo\n\n");
+				if(selecao == 1){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf("1- bat: %d \n",MostroHP1);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				if(selecao == 2){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf("2- bat: %d \n",MostroHP2);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				
+				escolha = getch();
+	   			
+	
+				if(escolha == 'w' && selecao > 1){
+					selecao = selecao - 1;
+				}
+				else if(escolha == 's' && selecao < 2){
+					selecao = selecao + 1;
+				}
+				else if(escolha == 32){
+					selecionado = selecao;
+				}
+				else{
 					
-				if(batHP1 > 0){printf("1- bat: %d \n",batHP1);}else{printf("1- bat: 0\n");}
-				if(batHP2 > 0){printf("2- bat: %d \n",batHP2);}else{printf("2- bat: 0\n");}
-				scanf("%d",&b);
-
-				danoEspada = (rand() %7) + 4;
-				if(b == 1 && batHP1 > 0){
-					escolha = 1;
-					batHP1 = batHP1 - dano;
-					c = 0;
 				}
-				else if(b == 2 && batHP2 > 0){
-					escolha = 2;
-					batHP2 = batHP2 - dano;
-					c = 0;
+				if(selecionado == 1){
+					manterMenu = 0;
+					alvo = 1;
 				}
-				else if(batHP2 < 0 && batHP2 < 0 ){c = 0;}
-				else{system("cls");}
+				else if(selecionado == 2){
+					manterMenu = 0;
+					alvo = 2;
+				}
+				else{
+			
+				}
+				system("cls");
 			}
-
-
+				
+			if (alvo == 1){
+				MostroHP1 = MostroHP1 - dano;
+			}
+			if (alvo == 2){
+				MostroHP2 = MostroHP2 - dano;
+			}	
+		}
+		
+		if(MostroHP1 > 0){
+			HP = HP - danoBat1;
+			
+		}
+		if(MostroHP2 > 0){
+			HP = HP - danoBat2;
+			
+		}
 	
 		system("cls");
-		if(batHP1 > 0){printf("bat1 dano: %d \n",danoBat1);}
-		if(batHP2 > 0){printf("bat2 dano: %d \n",danoBat2);}
-		if(escolha == 1){printf("voce causou %d de na em Bat1 ele tem %d agora\n ", dano, batHP1);}
-		if(escolha == 2){printf("voce causou %d de na em Bat2 ele tem %d agora\n ", dano, batHP2);}
+		if(MostroHP1 > 0){
+			printf("bat1 dano: %d \n",danoBat1);
+		}
+		if(MostroHP2 > 0){
+			printf("bat2 dano: %d \n",danoBat2);
+		}
+		if(alvo == 1){
+			printf("voce causou %d de na em Bat1 ele tem %d agora\n ", dano, MostroHP1);
+		}
+		if(alvo == 2){
+			printf("voce causou %d de na em Bat2 ele tem %d agora\n ", dano, MostroHP2);
+		}
 		system("pause");
 		system("cls");
 
@@ -263,7 +325,7 @@ void strat(void){
 			a = 0;
 			printf("you died \n");
 		}
-		else if (batHP1 < 1 && batHP2 < 1){
+		else if (MostroHP1 < 1 && MostroHP2 < 1){
 			a = 0;
 			printf("you win! \n");
 		}
