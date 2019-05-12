@@ -1,0 +1,18 @@
+// 01 Npc //
+
+: 01 --
+dialogo 1
+
+: 02 --
+dialogo 2
+
+// 02 Npc //
+
+: 01 --
+dialogo 1
+
+: 02 --
+dialogo 2
+
+
+///
