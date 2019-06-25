@@ -1,0 +1,35 @@
+// 01 sexo //
+
+Selecione seu sexo
+
+:
+
+Menino
+Menina
+
+
+// 02 classe //
+
+Selecione sua classe:
+:
+Guerreiro
+Arqueiro
+Mago
+Ladrão
+Templario
+
+// 03 talento //
+Selecione seu talento:
+
+:
+Fogo
+Agua
+Vento
+Luz
+Trevas
+
+
+
+
+
+///
