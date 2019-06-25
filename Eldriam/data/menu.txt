@@ -1,3 +1,15 @@
-// 01 menu //
+// 01 ---menu--- //
+começa
+continuar
+opcôes
+sair
+// 02 menu_do_Jogador //
+continuar
+personagem
+imventario
+mochila
+quest
+salvar
+sair do jogo
 
-// 02 menu //
+// 03 menu //
