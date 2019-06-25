@@ -1,4 +1,4 @@
-//Inicio 0.11
+//Inicio 0.12
   //Necessario especificar qual o sexo do perssonagem
   //Necessario especificar qual o classe do perssonagem
   //Necessario especificar qual o talento do perssonagem
@@ -8,6 +8,41 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <stdbool.h>
+#include <windows.h>
+#include <conio.h>
+#pragma comment(lib,"winmm.lib") 
+
+int cor = 3;
+int intervalo = 250;
+int classePersonagem = 1;
+
+int eixoX;
+int eixoY;
+
+// Declaracão de funções 
+void menuPrincipal(void);
+void start(void);
+void permanentSave(int sex, int classe, int talent);
+void characterSave(int classe);
+int calculoStatos(int tipoStato);
+void menuJogador();
+void inventario();
+void eqipamentos();
+void personagem();
+void upStatus();
+void InfomacoesDoPersonagem();
+void DecidirCombate(void);
+void equipamentoNome(int tipo, int equipamentoIP);
+void dialogo(int npc, int dialogoIP);
+int menu(int menuIP);
+int escolhaf(int escolhaIP , int estilo);
+void TocarMusica(int MusicaIP);
+void jogo(int save);
+int mapaf(int mapaIP);
+int combate(int monstro1, int monstro2, int classe);
+int historia(int saveIP);
+
+
 
 int main(){
 	
@@ -15,19 +50,21 @@ int main(){
 	
 	
 	setlocale(LC_ALL, "Portuguese");
-	menu();
+	menuPrincipal();
 
 }
-
 void menuPrincipal(void){
 	int mantemLoopMenu = 1;
-	int opcaoUsuarioMenu = 0;	
+	int opcaoMenu = 0;	
 	void start(void);
 	int menu(int menuIP);
+	TocarMusica(1);
 	
-	menu(1);
+	
 	
 	while(mantemLoopMenu == 1){
+		
+		opcaoUsuarioMenu = menu(1);
 		
 		if(opcaoUsuarioMenu == 1){
 			system("cls");
@@ -40,16 +77,17 @@ void menuPrincipal(void){
 		}else if(opcaoUsuarioMenu == 4){
 			mantemLoopMenu = 0;
 		}
+		else{
+			
+		}
 		system("cls");
 	}
 }
-
 void start(void){
 	int sex;
 	int classe;
 	int talent;
-	void permanentSave(int sex, int classe, int talent);
-	void characterSave(int classe);
+
 	
 	printf("****************************************\n");
 	printf("Você esta começando uma nova aventura...\n");
@@ -57,91 +95,30 @@ void start(void){
 	printf("então por favor me reponda...\n");
 	printf("*******************************************\n");
 	system("cls");	
-	sex = choiceSex();
-	classe = choiceclasse();
-	talent = choiceTalent();
+	sex = escolhaf(1 , 0);
+	classe = escolhaf(2 , 0);
+	talent = escolhaf(3 , 0);
 	
 	permanentSave(sex, classe, talent);
 	characterSave(classe);
-	calculoDano();
-	calculoArmadura();
-	calculoVida();
-	calculoVelocidade();
 	
-	capitulo_01();
+	classePersonagem = classe; // provisorio
+	
+	jogo(1);
+//	calculoDano();
+//	calculoArmadura();
+//	calculoVida();
+//	calculoVelocidade();
+	
+//	capitulo_01();
 	
 	system("pause");
-}
-
-int choiceSex(void){
-	int mantemLoopSex = 1; 
-	int opcaoUsuarioSex;
-	
-	while(mantemLoopSex == 1){
-		printf("\nSelecione seu sexo?\n1-Menino\n2-Menina\n");
-		
-		scanf("%d",&opcaoUsuarioSex);
-		
-		if(opcaoUsuarioSex == 1){
-			return 1;
-		
-		}else if(opcaoUsuarioSex == 2){
-			return 2;
-		}
-	}
-}
-
-int choiceclasse(void){
-	int mantemLoopClasse = 1;
-	int opcaoUsuarioClass;
-	
-	while(mantemLoopClasse == 1){
-		printf("\nSelecione sua classe:\n1-Guerreiro\n2-Arqueiro\n3-Mago\n4-Ladrão\n5-Templario\n");
-		scanf("%d",&opcaoUsuarioClass);
-		
-		if(opcaoUsuarioClass == 1){
-			return 1;
-		}else if(opcaoUsuarioClass == 2){
-			return 2;
-		}else if(opcaoUsuarioClass == 3){
-			return 3;
-		}else if(opcaoUsuarioClass == 4){
-			return 4;
-		}else if(opcaoUsuarioClass == 5){
-			return 5;
-		}
-	}
-}
-
-int choiceTalent(void){
-	int mantemLoopTalento = 1;
-	int opcaoUsuarioTalento;
-
-	while(mantemLoopTalento == 1){
-		printf("\nSelecione seu talento:\n1-Fogo\n2-Agua\n3-Vento\n4-Luz\n5-Trevas\n");
-		
-		scanf("%d",&opcaoUsuarioTalento);
-		
-		if(opcaoUsuarioTalento == 1){
-			return 1;
-		}else if(opcaoUsuarioTalento == 2){
-			return 2;
-		}else if(opcaoUsuarioTalento == 3){
-			return 3;
-		}else if(opcaoUsuarioTalento == 4){
-			return 4;
-		}else if(opcaoUsuarioTalento == 5){
-			return 5;
-		}else if(opcaoUsuarioTalento == 6){
-			return 6;
-		}
-	}
 }
 void permanentSave(int sex, int classe, int talent){
 
 FILE *file;
 
-file = fopen("PermanentSave.txt","w");
+file = fopen("save\\save1\\PermanentSave.txt","w");
 fprintf(file,"%d %d %d", sex, classe, talent);
 fclose(file);
 
@@ -149,7 +126,7 @@ fclose(file);
 void characterSave(int classe){
 	FILE *file;
 
-	file = fopen("CharacterSave.txt","w");
+	file = fopen("save\\save1\\CharacterSave.txt","w");
 
 	if(classe == 1){
 		fprintf(file,"5 3 3 5 1 1 \n");
@@ -170,216 +147,13 @@ void characterSave(int classe){
 	
 	fclose(file);
 
-	file = fopen("Exp.txt","w");
+	file = fopen("save\\save1\\Exp.txt","w");
 
 	fprintf(file,"0 0 1\n");
 
 	fclose(file);
 
 }
-void calculoDano(void){
-	int i;
-	int lixo; 
-	int arma;
-	int forca;
-	int dexteza;
-	int danoArma; 
-	int cadencia;
-	int danoMaximo;
-	int danoMinimo;
-
-	FILE *file;
-	file = fopen("CharacterSave.txt","r");
-	fscanf(file,"%d",&forca);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&dexteza);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&arma);
-	fclose(file);
-	if(arma == 1){danoArma = 30;cadencia = 50;}
-	else if(arma == 2){danoArma = 20;cadencia = 75;}
-	else if(arma == 3){danoArma = 5;cadencia = 100;}
-	else if(arma == 4){danoArma = 15;cadencia = 80;}
-	else if(arma == 5){danoArma = 25;cadencia = 40;}
-	else if(arma == 6){danoArma = 75;cadencia = 60;}
-	else if(arma == 7){danoArma = 100;cadencia = 70;}
-	else if(arma == 8){danoArma = 80;cadencia = 50;}
-	else if(arma == 9){danoArma = 10;cadencia = 100;}
-	else if(arma == 10){danoArma = 100;cadencia = 60;}
-	else if(arma == 11){danoArma = 50;cadencia = 60;}
-	else if(arma == 12){danoArma = 300;cadencia = 10;}
-	else if(arma == 13){danoArma = 150;cadencia = 80;}
-	else if(arma == 14){danoArma = 150;cadencia = 50;}
-	else if(arma == 15){danoArma = 300;cadencia = 50;}
-	else{danoArma = 0;cadencia = 50;}
-	danoMaximo = danoArma + (forca * 0.2) + (dexteza * 0.2);
-	danoMinimo = (danoArma * cadencia)/100;
-
-	file = fopen("danoSave.txt","w");
-	fprintf(file,"%d %d", danoMaximo, danoMinimo);
-	fclose(file);
-}
-void calculoArmadura(void){
-	int a = 0;
-	int b = 5;
-	int lixo;
-	int forca;
-	int agilidade;
-	int constituicao;
-
-	int capacete;
-	int armadura;
-	int luvas;
-	int botas;
-
-	int capaceteV;
-	int armaduraV;
-	int luvasV;
-	int botasV;
-	int capaceteA;
-	int armaduraA;
-	int luvasA;
-	int botasA;
-	int armaduraTotal;
-	int def;
-	int velocidadeArmadura;
-	
-	FILE *file;
-	file = fopen("CharacterSave.txt","r");
-	fscanf(file,"%d",&forca);
-	fscanf(file,"%d",&agilidade);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&constituicao);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&capacete);
-	fscanf(file,"%d",&armadura);
-	fscanf(file,"%d",&luvas);
-	fscanf(file,"%d",&botas);
-	
-	
-	fclose(file);
- 	capacete = capacete - 1;
-	armadura = armadura - 1;
-	luvas = luvas - 1;
-	botas = botas - 1;
-
-	file = fopen("Capacete.txt","r");
-	while(a < capacete){
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		a = a + 1;
-	}
-	fscanf(file,"%d",&capaceteA);
-	fscanf(file,"%d",&capaceteV);
-	a = 0;
-	fclose(file);
-
-	file = fopen("Armadura.txt","r");
-	while(a < armadura){
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		a = a + 1;
-	}
-	fscanf(file,"%d",&armaduraA);
-	fscanf(file,"%d",&armaduraV);
-	a = 0;
-	fclose(file);
-
-	file = fopen("Luvas.txt","r");
-	while(a < luvas){
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		a = a + 1;
-	}
-	fscanf(file,"%d",&luvasA);
-	fscanf(file,"%d",&luvasV);
-	a = 0;
-	fclose(file);
-
-	file = fopen("Botas.txt","r");
-	while(a < botas){
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		a = a + 1;
-	}
-	fscanf(file,"%d",&botasA);
-	fscanf(file,"%d",&botasV);
-	fclose(file);
-	armaduraTotal = capaceteA + armaduraA + luvasA + botasA;
-	velocidadeArmadura = capaceteV + armaduraV + luvasV + botasV;
-	def = armaduraTotal + constituicao;
-	file = fopen("CharacterSaveDef.txt","w");
-	fprintf(file,"%d %d", def, velocidadeArmadura);
-	fclose(file);
-}
-void calculoVida(void){
-	int lixo; 
-	int constituicao;
-	int vida;
-
-	FILE *file;
-	file = fopen("CharacterSave.txt","r");
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&constituicao);
-	fclose(file);
-	
-	vida = 10 + 5 * constituicao;	
-
-	file = fopen("VidaSave.txt","w");
-	fprintf(file,"%d", vida);
-	fclose(file);
-}
-void calculoVelocidade(void){
-	int a = 0;
-	int b = 5;
-	int lixo; 
-	int agilidade;
-	int armaduraV;
-	int armaV; 
-	int arma;
-	int velocidade;
-
-	FILE *file;
-	file = fopen("CharacterSave.txt","r");
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&agilidade);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&arma);
-
-	fclose(file);
-	arma = arma - 1;
-	file = fopen("Armas.txt","r");
-	while(a < arma){
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		fscanf(file,"%d",&lixo);
-		a = a + 1;
-	}
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&armaV);
-	fscanf(file,"%d",&lixo);
-	a = 0;
-	fclose(file);
-	file = fopen("CharacterSaveDef.txt","r");
-	fscanf(file,"%d",&lixo);
-	fscanf(file,"%d",&armaduraV);
-	fclose(file);
- 	velocidade = 100 + armaduraV + armaV;
-	file = fopen("CharacterSaveVel.txt","w");
-	fprintf(file,"%d", velocidade);
-	fclose(file);
-}
-
 void menuJogador(){
 	bool mantemLoopMenu = 1;
 	int opcaoUsuarioMenu = 0;
@@ -406,8 +180,8 @@ void menuJogador(){
 			personagem();
 		}
 		system("cls");
+	}
 }
-
 void inventario(){
 
 	bool mantemLoopMenu = 1;
@@ -433,7 +207,8 @@ void inventario(){
 			system("cls");
 			mantemLoopMenu = 0;
 		}
-		system("cls");
+		system("cls");	
+	}
 }
 void eqipamentos(){
 
@@ -488,50 +263,9 @@ void personagem(){
 			mantemLoopMenu = 0;
 		}
 		system("cls");
+	}
 }
-
-
-void inventarioEquipamentos(){
-	bool mantemLoopMenu = 1;
-	int opcaoUsuarioMenu = 0;
-
-	while(mantemLoopMenu == 1){
-		printf("**********Inventario**********\n");
-		printf("1 - Armas\n");
-		printf("2 - Capacetes\n");
-		printf("3 - Armaduras\n");
-		printf("4 - Luvas\n");
-		printf("5 - Botas\n");
-		printf("6 - voltar\n");
-		printf("******************************\n");
-		
-		scanf("%d",&opcaoUsuarioMenu);
-		
-		if(opcaoUsuarioMenu == 1){
-			inventarioArmas();
-		}else if(opcaoUsuarioMenu == 2){
-			inventarioCapacetes();
-		}else if(opcaoUsuarioMenu == 3){
-			inventarioArmaduras();
-		}else if(opcaoUsuarioMenu == 4){
-			inventarioLuvas();
-		}else if(opcaoUsuarioMenu == 5){
-			inventarioBotas();
-		}else if(opcaoUsuarioMenu == 6){
-			system("cls");
-			mantemLoopMenu = 0;
-		}
-		system("cls");
-}
-void inventarioConsumiveis(){
-
-}
-void inventarioItens(){
-
-}
-
-
-upStatus(){
+void upStatus(){
 
 	bool mantemLoopMenu = 1;
 	int opcaoUsuarioMenu = 0;
@@ -653,9 +387,9 @@ upStatus(){
 			mantemLoopMenu = 0;
 		}
 		system("cls");
-
+	}
 }
-InfomacoesDoPersonagem(){
+void InfomacoesDoPersonagem(){
 	int a = 1;
 	int b;
 	int vida;
@@ -701,208 +435,9 @@ InfomacoesDoPersonagem(){
 	}
 
 }
-
-
 void DecidirCombate(void){
 	
 }
-
-void strat(void){
-	srand(time(NULL));
-	int a = 1, b = 0, c = 1;
-
-	int i = 0, x = 0, y = 0;
-   	srand(time(NULL));
-
-	int mostroHP1;
-	int mostroHP2;
-	int mostroHP3;
-	int mostroHP4;
-
-	int danoMostroMinimo1;
-	int danoMostroMinimo2;
-	int danoMostroMinimo3;
-	int danoMostroMinimo4;
-
-	int danoMostroMaximo1;
-	int danoMostroMaximo2;
-	int danoMostroMaximo3;
-	int danoMostroMaximo4;
-
-	int danoMostro1;
-	int danoMostro2;
-	int danoMostro3;
-	int danoMostro4;
-
-	char nomeMostro1[20];
-	char nomeMostro2[20];
-	char nomeMostro3[20];
-	char nomeMostro4[20];
-
-	int HP;
-	int HPMaximo;
-	int dano;
-	int danoMinimo;
-	int danoMaximo;
-	int defesa;
-	int escolha;
-	int velocidade;
-	int exp;
-	int newExp;
-	
-
-	
-	FILE *file;
-	file = fopen("CharacterSave.txt","r");
-	fclose(file);
-	file = fopen("CharacterSave.txt","r");
-	fclose(file);
-	file = fopen("CharacterSave.txt","r");
-	fclose(file);
-	file = fopen("CharacterSave.txt","r");
-	fclose(file);
-
-	while(a == 1){
-		printf("-- \n");
-		printf("hp: %d / \n",HP, HPMaximo);
-		printf("1- atacar: 4 - 10 \n");
-		printf("2- defender 50%  \n");
-		printf("3- magia \n");
-		printf("4- inventario \n");
-		printf("5- fugir \n");
-		printf(" \n");
-		scanf("%d", &b);
-		c = 1;
-		system("cls");
-		while(c == 1){
-			c = 0;
-			
-			while(i<1000){
-				if(i > 0){
-					i = i + ;
-				}
-		
-				system("cls");
-				printf("%d\n",i);
-				printf("[");
-				x = 0;
-    				while(x<i && x<1000){
-    					if((i-x)>99){
-    						printf("*");
-					}
-    				x=x+100;
-				}
-				x = 1000;
-				while(x>i){
-    					printf(" ");
-    					x=x-100;
-				}
-				printf("]");
-  				Sleep(500);
-  		
-  				if(i == 0){
-					i = i + ;
-				}
-  			}
-
-			danoMostro1 =(rand() %(danoMostroMaximo1 - danoMostroMinimo1)) + danoMostroMinimo1;
-			danoMostro2 =(rand() %(danoMostroMaximo2 - danoMostroMinimo2)) + danoMostroMinimo2;
-			danoMostro3 =(rand() %(danoMostroMaximo3 - danoMostroMinimo3)) + danoMostroMinimo3;
-			danoMostro4 =(rand() %(danoMostroMaximo4 - danoMostroMinimo4)) + danoMostroMinimo4;
-
-			if(b == 1){
-				danoEspada = (rand() %7) + 4;
-				dano = danoEspada;
-
-				
-				if(mostroHP1 > 0){HP = HP - danoMostro1;}
-				if(mostroHP2 > 0){HP = HP - danoMostro2;}
-				if(mostroHP3 > 0){HP = HP - danoMostro3;}
-				if(mostroHP4 > 0){HP = HP - danoMostro4;}
-				c = 0;
-			}
-
-		
-			else if(b == 2){ 
-				
-
-				if(mostroHP1 > 0){HP = HP - (danoMostro1 / 2);}
-				if(mostroHP2 > 0){HP = HP - (danoMostro2 / 2);}
-				if(mostroHP3 > 0){HP = HP - (danoMostro3 / 2);}
-				if(mostroHP4 > 0){HP = HP - (danoMostro4 / 2);}
-				c = 0;	
-			}
-			
-
-			else{c = 1;}
-
-		}
-
-			c = 1;
-			while(c == 1){
-					
-				if(mostroHP1 > 0){printf("1- %s: %d hp\n",nomeMostro1, mostroHP1);}else{printf("1- %s: 0\n",nomeMostro1);}
-				if(mostroHP2 > 0){printf("2- %s: %d hp\n",nomeMostro2, mostroHP2);}else{printf("2- %s: 0\n",nomeMostro2);}
-				if(mostroHP3 > 0){printf("2- %s: %d hp\n",nomeMostro3, mostroHP3);}else{printf("3- %s: 0\n",nomeMostro3);}
-				if(mostroHP4 > 0){printf("2- %s: %d hp\n",nomeMostro4, mostroHP4);}else{printf("4- %s: 0\n",nomeMostro4);}
-				scanf("%d",&b);
-
-				danoEspada = (rand() %7) + 4;
-				if(b == 1 && mostroHP1 > 0){
-					escolha = 1;
-					mostroHP1 = mostroHP1 - dano;
-					c = 0;
-				}
-				else if(b == 2 && mostroHP2 > 0){
-					escolha = 2;
-					mostroHP1 = mostroHP1 - dano;
-					c = 0;
-				}
-				else if(b == 3 && mostroHP3 > 0){
-					escolha = 3;
-					mostroHP1 = mostroHP1 - dano;
-					c = 0;
-				}
-				else if(b == 4 && mostroHP4 > 0){
-					escolha = 4;
-					mostroHP1 = mostroHP1 - dano;
-					c = 0;
-				}
-				else if(mostroHP1 < 0 && mostroHP2 < 0 && mostroHP3 < 0 && mostroHP4 < 0 ){c = 0;}
-				else{system("cls");}
-			}
-
-
-	
-		system("cls");
-		if(mostroHP1 > 0){printf("%s dano: %d \n",nomeMostro1,danoMostro1);}
-		if(mostroHP2 > 0){printf("%s dano: %d \n",nomeMostro2,danoMostro2);}
-		if(mostroHP3 > 0){printf("%s dano: %d \n",nomeMostro3,danoMostro3);}
-		if(mostroHP4 > 0){printf("%s dano: %d \n",nomeMostro4,danoMostro4);}
-
-
-		if(escolha == 1){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro1, mostroHP1);}
-		if(escolha == 2){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro2, mostroHP2);}
-		if(escolha == 3){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro3, mostroHP3);}
-		if(escolha == 4){printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMostro4, mostroHP4);}
-		system("pause");
-		system("cls");
-
-		if(HP<1) {
-			a = 0;
-			printf("you died \n");
-		}
-		else if (batHP1 < 1 && batHP2 < 1){
-			a = 0;
-			printf("you win! \n");
-		}
-		
-		
-	}
-
-}
-
-
 void equipamentoNome(int tipo, int equipamentoIP){
 	char lixo[100] = "";
 	char nome[100] = "";
@@ -918,11 +453,11 @@ void equipamentoNome(int tipo, int equipamentoIP){
 	manter = 1;
 	while(manter == 1 && erro == 0){
 		fscanf(file,"%s",&lixo);
-		if(lixo[0] = '/' && lixo[1] = '/' && lixo[2] = '/'){
+		if(lixo[0] == '/' && lixo[1] == '/' && lixo[2] == '/'){
 			manter = 0;
 			erro = 1;
 		}
-		else if(lixo[0] = '/' && lixo[1] = '/'){
+		else if(lixo[0] == '/' && lixo[1] == '/'){
 			fscanf(file,"%d",&numero);
 			if(numero == tipo){
 				manter = 0;
@@ -934,7 +469,7 @@ void equipamentoNome(int tipo, int equipamentoIP){
 	}
 	while(manter == 1){
 		fscanf(file,"%s",&lixo);
-		if(lixo[0] = '/' && lixo[1] = '/'){
+		if(lixo[0] == '/' && lixo[1] == '/'){
 			manter = 0;
 			erro = 1;
 		}
@@ -969,11 +504,11 @@ void dialogo(int npc, int dialogoIP){
 	manter = 1;
 	while(manter == 1){
 		fscanf(file,"%s",&nome);
-		if(nome[0] = '/' && nome[1] = '/' && nome[2] = '/'){
+		if(nome[0] == '/' && nome[1] == '/' && nome[2] == '/'){
 			manter = 0;
 			erro = 1;
 		}
-		else if(nome[0] = '/' && nome[1] = '/'){
+		else if(nome[0] == '/' && nome[1] == '/'){
 			fscanf(file,"%d",&numero);
 			fscanf(file,"%s",&nome);
 			fscanf(file,"%s",&nome);
@@ -985,7 +520,7 @@ void dialogo(int npc, int dialogoIP){
 	manter = 1;
 	while(manter == 1){
 		fscanf(file,"%s",&nome);
-		if(nome[0] = '/' && nome[1] = '/'){
+		if(nome[0] == '/' && nome[1] == '/'){
 			manter = 0;
 			erro = 1;
 		}
@@ -1010,50 +545,1212 @@ void dialogo(int npc, int dialogoIP){
 	
 	fclose(file);
 }
-
 int menu(int menuIP){
-		char lixo[100] = "";
+	
+	//cores - parte do codigo que define funcionalidade das cores no windows
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	// -
+	// Variaveis do menu
+	int manterMenu = 1;
+	int selecionado = 0;
+	int selecao = 1;
+	char escolha;
+	// -
+	//
+	char lixo[100] = "";
 	char nome[100] = "";
+	char menuNome[100] = "";
+	char opcoes[100][20];
 	char invalido[100] = "equipamento_invalido";
 	int numero;
 	int manter;
-	
+	// -
+	//
 	int i;
+	int contador;
+	int contador2;
 	int erro = 0;
+	// -
+	FILE *file;
+	file = fopen("data\\menu.txt","r");
+	// Encontar menu
+	manter = 1;
+	while(manter == 1 && erro == 0){
+		fscanf(file,"%s",&lixo);
+		if(lixo[0] == '/' && lixo[1] == '/' && lixo[2] == '/'){
+			manter = 0;
+			erro = 1;
+		}
+		else if(lixo[0] == '/' && lixo[1] == '/'){
+			fscanf(file,"%d",&numero);
+			fscanf(file,"%s",&menuNome);
+			fscanf(file,"%s",&lixo);
+			if(numero == menuIP){
+				manter = 0;
+			}
+		}
+	}	
+	// -
+	// Armzenar opções do menu
+	manter = 1;
+	contador = 0;
+	while(manter == 1 && erro == 0){
+		fscanf(file,"%s",&lixo);
+		if(lixo[0] == '/' && lixo[1] == '/'){
+			manter = 0;
+		}
+		else{
+			
+			for (i = 0; i < 99; i++){
+				opcoes[i][contador] = lixo[i];
+			}
+			contador = contador + 1;
+		}
+	}
+	fclose(file);
+	// -
+	//
+	manterMenu = 1;
+	while(manterMenu == 1){
+		// Imprecão
+		printf("%s \n", menuNome);
+		contador2 = 0;
+		while(contador2 < contador){
+			if(selecao == (contador2 + 1)){
+				SetConsoleTextAttribute(hConsole, cor);
+			}
+			for (i = 0; i < 99; i++){
+				 nome[i] = opcoes[i][contador2];
+			}
+			printf("%s \n", nome);
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			contador2 = contador2 + 1;
+		}
+		
+		printf("\n******************************************* \n");
+		// -
+		// Capitura
+		escolha = getch();
+   		// -
+		// Oque fazer com produto caputurado
+		if(escolha == 'w' && selecao > 1){
+			selecao = selecao - 1;
+		}
+		else if(escolha == 's' && selecao < contador){
+			selecao = selecao + 1;
+		}
+		else if(escolha == 32){
+			selecionado = selecao;
+			manterMenu = 0;
+		}
+		else{
+			
+		}
+		// -
+		system("cls");
+	}
+	return(selecao);
+}
+int escolhaf(int escolhaIP , int estilo){
+	//cores - parte do codigo que define funcionalidade das cores no windows
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	// -
+	// Variaveis do menu
+	int manterMenu = 1;
+	int selecionado = 0;
+	int selecao = 1;
+	char escolha;
+	// -
+	//
+	char lixo[100] = "";
+	char nome[100] = "";
+	char menuNome[100] = "";
+	char opcoes[100][20];
+	char invalido[100] = "equipamento_invalido";
+	int numero;
+	int manter;
+	// -
+	//
+	int i;
+	int contador;
+	int contador2;
+	int contador3;
+	int erro = 0;
+	// -
+	int enuciado[100][50];
 	
 	FILE *file;
-	file = fopen("Nova\\arquivo.txt","r");
+	file = fopen("data\\escolhas.txt","r");
 	
 	manter = 1;
 	while(manter == 1 && erro == 0){
 		fscanf(file,"%s",&lixo);
-		if(lixo[0] = '/' && lixo[1] = '/' && lixo[2] = '/'){
+		if(lixo[0] == '/' && lixo[1] == '/' && lixo[2] == '/'){
 			manter = 0;
 			erro = 1;
 		}
-		else if(lixo[0] = '/' && lixo[1] = '/'){
+		else if(lixo[0] == '/' && lixo[1] == '/'){
 			fscanf(file,"%d",&numero);
-			if(numero == tipo){
+			fscanf(file,"%s",&menuNome);
+			fscanf(file,"%s",&lixo);
+			if(numero == escolhaIP){
+				manter = 0;
+			}
+		}
+	}	
+	contador3 = 0;
+	manter = 1;
+	erro = 0;
+	while(manter == 1 && erro == 0){
+		fscanf(file,"%s",&lixo);
+		if(lixo[0] == ':'){
+			manter = 0;
+		}
+		else{
+			for (i = 0; i < 99; i++){
+				enuciado[i][contador3] = lixo[i];
+			}
+			contador3 = contador3 + 1;
+		}
+	}
+	
+	// Armzenar opções do menu
+	manter = 1;
+	contador = 0;
+	while(manter == 1 && erro == 0){
+		fscanf(file,"%s",&lixo);
+		if(lixo[0] == '/' && lixo[1] == '/'){
+			manter = 0;
+		}
+		else{ 
+		
+			for (i = 0; i < 99; i++){
+				opcoes[i][contador] = lixo[i];
+			}
+			contador = contador + 1;
+		}
+	}
+	fclose(file);
+	// -
+	//
+	manterMenu = 1;
+	while(manterMenu == 1){
+		// Imprecão
+		contador2 = 0;
+		while(contador2 < contador3){
+			for (i = 0; i < 99; i++){
+				 nome[i] = enuciado[i][contador2];
+			}
+			printf("%s ", nome);
+			contador2 = contador2 + 1;
+		}
+		printf("\n");
+		contador2 = 0;
+		while(contador2 < contador){
+			if(selecao == (contador2 + 1)){
+				SetConsoleTextAttribute(hConsole, cor);
+			}
+			for (i = 0; i < 99; i++){
+				 nome[i] = opcoes[i][contador2];
+			}
+			printf("%s \n", nome);
+			SetConsoleTextAttribute(hConsole, saved_attributes);
+			contador2 = contador2 + 1;
+		}
+		
+		printf("\n******************************************* \n");
+		// -
+		// Capitura
+		escolha = getch();
+   		// -
+		// Oque fazer com produto caputurado
+		if(escolha == 'w' && selecao > 1){
+			selecao = selecao - 1;
+		}
+		else if(escolha == 's' && selecao < contador){
+			selecao = selecao + 1;
+		}
+		else if(escolha == 32){
+			selecionado = selecao;
+			manterMenu = 0;
+		}
+		else{
+			
+		}
+		// -
+		system("cls");
+	}
+	return(selecao);	
+}
+void TocarMusica(int MusicaIP){
+	int numero;
+	char nome[100];
+	int i;
+	
+	FILE *file;
+	file = fopen("data\\lista_musicas.txt","r");
+	i = 0;
+	while(i < MusicaIP){
+		fscanf(file,"%s",&nome);
+		i = i + 1;
+	}
+	fclose(file);
+	PlaySound(nome, NULL, SND_FILENAME | SND_ASYNC);
+	
+}
+int mapaf(int mapaIP){
+	// necesario para impreção de cores
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	// -
+
+	
+	int tamanhoMaximo = 150;
+	// variaveis necesarias
+	int x = 1, y = 1, exit = 0, escolhaExit = 0;
+	int inicilX, inicilY;
+	char mapa[tamanhoMaximo][tamanhoMaximo];
+	int cor, corx, cory;
+	char escolha;
+	char mapaPrint[tamanhoMaximo][(tamanhoMaximo / 2)];
+	int manter;
+	int contador[5];
+	int erro = 0;
+	int interacao;
+	setlocale(LC_ALL, "C");
+	// -
+	// cores
+	int corNPC = 2;
+	int corInimigo = 4;
+	int corSaida = 3;
+	int corParede = 7;
+	int corVasio = 0;
+	int corPersonagem = 14;
+	// - 
+	char lixo[100] = "";
+	char nome[100] = "";
+	char menuNome[100] = "";
+	char opcoes[100][20];
+	char invalido[100] = "equipamento_invalido";
+	int numero;
+	
+	x = eixoX;
+	y = eixoY;
+	
+	// iguala todos os epasos da matriz mapa[][] a zero
+	while(contador[2] < (tamanhoMaximo - 1)){
+
+		while(contador[0] < (tamanhoMaximo - 1)){
+			mapa[contador[0]][contador[2]] = '0';
+			contador[0] = contador[0] + 1;
+		}
+		contador[2] = contador[2] + 1;
+		contador[0] = 0;
+	}
+	// -
+	FILE *file;
+	file = fopen("data\\mapas.txt","r");
+	
+	// encontra o mapa especificado na fumção
+	manter = 1;
+	while(manter == 1 && erro == 0){
+		fscanf(file,"%s",&lixo);
+		if(lixo[0] == '/' && lixo[1] == '/' && lixo[2] == '/'){
+			manter = 0;
+			erro = 1;
+		}
+		else if(lixo[0] == '/' && lixo[1] == '/'){
+			fscanf(file,"%d",&numero);
+			fscanf(file,"%s",&menuNome);
+			fscanf(file,"%s",&lixo);
+			if(numero == mapaIP){
 				manter = 0;
 			}
 		}
 	}
+	// -
+	// lé o mapa do .txt
+	contador[0] = 0;
+	contador[1] = 0;
+	contador[2] = 0;
+	contador[3] = 0;
+	manter = 1;
+	while(manter == 1){
+		while(manter == 1){
+			fscanf(file,"%s",&lixo[0]);
+			mapa[contador[0]][contador[2]] = lixo[0];
+			
+			
+			if(mapa[contador[0]][contador[2]] == ':'){
+				manter = 0;
+				if(contador[0] > contador[1]){
+					contador[1] = contador[0];
+				}
+			}
+			contador[0] = contador[0] + 1;
+		}
+		manter = 1;
+		contador[2] = contador[2] + 1;
+		
+		
+		if(lixo[0] == ':' && lixo[1] == ':'){
+			manter = 0;
+			contador[3] = contador[2];
+		}
+		contador[0] = 0;
+	}
+	// - 
+	fclose(file);
+	
+	contador[0] = 0;
+	contador[2] = 0;
+	
+	while(contador[2] < ((contador[3] / 2) + (contador[3] % 2))){
+		while(contador[0] < contador[1]){
+			
+			if(mapa[contador[0]][(contador[2] * 2)] == '3'){
+				corx = corSaida;
+			}
+			else if(mapa[contador[0]][(contador[2] * 2)] == '1'){
+				corx = corParede;
+			}
+			else if(mapa[contador[0]][(contador[2] * 2)]  == '5'){
+				corx = corInimigo;
+			}
+			else{
+				corx = corVasio;
+				if(mapa[contador[0]][(contador[2] * 2)] == '2'){
+					x = contador[0];
+					y = contador[2] * 2;
+					inicilX = x;
+					inicilY = y;
+				}
+			}
+				
+				
+			if(mapa[contador[0]][(contador[2] * 2 + 1)] == '3'){
+				cory = corSaida;
+			}
+			else if(mapa[contador[0]][(contador[2] * 2 + 1)]  == '1'){
+				cory = corParede;
+			}
+			else if(mapa[contador[0]][(contador[2] * 2 + 1)]  == '5'){
+				cory = corInimigo;
+			}
+			else{
+				cory = corVasio;
+				if(mapa[contador[0]][(contador[2] * 2 + 1)]  == '2'){
+					x = contador[0];
+					y = (contador[2] * 2 + 1);
+					inicilX = x;
+					inicilY = y;
+				}
+			}
+			
+			mapaPrint[contador[0]][contador[2]] = corx + (cory * 16);
+			
+			contador[0] = contador[0] + 1;
+		}
+		
+		contador[0] = 0;
+		contador[2] = contador[2] + 1;
+	}
+
+	contador[0] = 0;
+	contador[2] = 0;
+	
+	while(exit == 0){
+		while(contador[2] < ((contador[3] / 2) + (contador[3] % 2))){
+			while(contador[0] < contador[1]){
+				// imprecão da localização do personagem 
+				if(contador[2] == (y / 2) && contador[0] == x){
+					if((y % 2) == 0){
+						corx = corPersonagem;
+						
+						if(mapa[contador[0]][(contador[2] * 2 + 1)] == '3'){
+							cory = corSaida;
+						}
+						else if(mapa[contador[0]][(contador[2] * 2 + 1)]  == '1'){
+							cory = corParede;
+						}
+						else if(mapa[contador[0]][(contador[2] * 2 + 1)]  == '5'){
+							cory = corInimigo;
+						}
+						else{
+							cory = corVasio;
+						}
+					}
+					else{
+						cory = corPersonagem;
+						if(mapa[contador[0]][(contador[2] * 2)] == '3'){
+							corx = corSaida;
+						}
+						else if(mapa[contador[0]][(contador[2] * 2)] == '1'){
+							corx = corParede;
+						}
+						else if(mapa[contador[0]][(contador[2] * 2)]  == '5'){
+							cory = corInimigo;
+						}
+						else{
+							corx = corVasio;
+						}
+					}
+					SetConsoleTextAttribute(hConsole, (corx + (cory * 16)));
+				}
+				// - 
+				// impreção do resto do mapa
+				else{
+					SetConsoleTextAttribute(hConsole, mapaPrint[contador[0]][contador[2]]);
+				}
+				// -
+				printf("%c",223);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				contador[0] = contador[0] + 1;
+			}
+			contador[0] = 0;
+			printf("\n");
+			contador[2] = contador[2] + 1;
+		}
+		contador[2] = 0;
+		printf("\n\nx %d",x);
+		printf("\n\ny %d",y);
+		printf("\n\nc1 %d",contador[1]);
+		
+			
+   		escolha = getch();
+   			
+
+		if(escolha == 'w' && mapa[x][(y - 1)] != '1'){
+			y = y - 1;
+		}
+		else if(escolha == 'd' && mapa[(x + 1)][y] != '1'){
+			x = x + 1;
+		}
+		else if(escolha == 'a' && mapa[(x - 1)][y] != '1'){
+			x = x - 1;
+		}
+		else if(escolha == 's' && mapa[x][(y + 1)] != '1'){
+			y = y + 1;
+		}
+		else if(escolha == 32){
+			exit = 1;
+			if(mapa[x][y] == '3'){
+				interacao = 0;
+			}
+			else if(mapa[x][y] == '4'){
+				interacao = 2;
+			}
+			else{
+				interacao = 0;
+				exit = 0;
+			}
+		}
+		else{
+			
+		}
+		if(x < 0){
+			x = x + 1;
+		}
+		if(y < 0){
+			y = y + 1;	
+		}
+		if(x > (contador[1] - 1) ){
+			x = x - 1;
+		}
+		if(y > (contador[3] - 1) ){
+			y = y - 1;
+		}
+		
+		if(mapa[x][y] == '5'){
+			interacao = 3;
+			exit = 1;
+		}
+			
+
+		system("cls");
+		
+		
+	}
+	eixoX = x;
+	eixoY = y;
+	setlocale(LC_ALL, "Portuguese");
+	return(interacao);
+}
+void jogo(int save){
+	
+	setlocale(LC_ALL, "Portuguese");
+	int manter = 1;
+	int estado = 2;
+	int opcaoUsuarioMenu = 0;
+
+	eixoX = 1;
+	eixoY = 1;
+	
+
+
+	while(manter == 1){
+		
+		// historia
+		if(estado == 1){
+			estado = historia(save);
+		}
+		// mapa
+		if(estado == 2){
+			estado = mapaf(1);
+		}
+		// combate
+		if(estado == 3){
+			estado = combate(1, 2, classePersonagem);
+		}
+		// menu
+		if(estado == 4){
+			
+			opcaoMenu = menu(2);
+			
+			if(opcaoMenu == 1){
+				estado = 2;
+			}
+			else if(opcaoMenu == 2){
+				
+			}
+			else if(opcaoMenu == 3){
+				
+			}
+			else if(opcaoMenu == 4){
+				
+			}
+			else if(opcaoMenu == 5){
+				
+			}
+			else if(opcaoMenu == 6){
+				
+			}
+			else if(opcaoMenu == 7){
+				estado = 0;
+			}
+		}
+		
+		
+		if(estado == 0){
+			manter = 0;
+		}
+		
+	}
+
+}
+int combate(int monstro1IP, int monstro2IP, int classe){
+	
+	//cores - parte do codigo que define funcionalidade das cores no windows
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD saved_attributes;
+	GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+	saved_attributes = consoleInfo.wAttributes;
+	// -
+	FILE *file;
+	// Variaveis do menu
+	int manterMenu = 1;
+	int selecionado = 0;
+	int selecao = 1;
+	char escolha;
+	// -
+	// Define os estatos dos invouvidos no combate
+	srand(time(NULL));
+	int a = 1;
+	int i;
+	int MonstroHP1 = 50, MonstroHP2 = 50, HP = 200, acao, alvo, magia = 0, vez = 1, vezMonstro1, vezMonstro2, danoMagico;
+	int dano, danoMaximo = 25, danoMinimo = 10;
+	int danoBat1, danoMaximoMonstro1 = 5, danoMinimoMonstro1 = 2, danoBat2, danoMaximoMonstro2 = 5, danoMinimoMonstro2 = 2;
+	int velocidadeMaxima = 150, velocidadeMinima = 100;
+	int velocidadeMaximaMonstro1 = 80, velocidadeMinimaMonstro1 = 50;
+	int velocidadeMaximaMonstro2 = 80, velocidadeMinimaMonstro2 = 50;
+	int criticoChance, criticoDano, critico;
+	int progresoP = 0;
+	int progresoM1 = 0;
+	int progresoM2 = 0;
+	int estatos = 0;
+	int manter = 1;
+	int lixo;
+	int contador = 0;
+	int retorno;
+	
+	//-
+	
+	// Define os nomes (Classes e Inimigos)
+	char nomeMonstro1[100] = "Mostro1";
+	char nomeMonstro2[100] = "Mostro2";
+	char nome[100] = "";
+	char classe1[100] = "";
+	char classe2[100] = "";
+	char classe3[100] = "";
+	char classe4[100] = "";
+	char classe5[100] = "";
+	char lixoN[100];
+	// -
+	file = fopen("data\\provisorio\\classe.txt","r");
+	fscanf(file,"%s", &classe1);
+	fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	fscanf(file,"%s", &classe2);
+	fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	fscanf(file,"%s", &classe3);
+	fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	fscanf(file,"%s", &classe4);
+	fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	fscanf(file,"%s", &classe5);
+	fclose(file);
+	
+	if(classe == 1){
+		for (i = 0; i < 99; i++){
+			nome[i] = classe1[i];
+		}
+	}
+	if(classe == 2){
+		for (i = 0; i < 99; i++){
+			nome[i] = classe2[i];
+		}
+	}
+	if(classe == 3){
+		for (i = 0; i < 99; i++){
+			nome[i] = classe3[i];
+		}
+	}
+	if(classe == 4){
+		for (i = 0; i < 99; i++){
+			nome[i] = classe4[i];
+		}
+	}
+	if(classe == 5){
+		for (i = 0; i < 99; i++){
+			nome[i] = classe5[i];
+		}
+	}
+	
+	// -
+	
+	file = fopen("data\\provisorio\\classe.txt","r");
+	fscanf(file,"%s", &lixoN);
+	if(classe == 1){
+		fscanf(file,"%d %d %d %d %d %d %d", &HP, &danoMaximo, &danoMinimo, &velocidadeMaxima, &velocidadeMinima, &criticoChance, &criticoDano);
+	}
+	else{
+		fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	}
+	fscanf(file,"%s", &lixoN);
+	if(classe == 2){
+		fscanf(file,"%d %d %d %d %d %d %d", &HP, &danoMaximo, &danoMinimo, &velocidadeMaxima, &velocidadeMinima, &criticoChance, &criticoDano);
+	}
+	else{
+		fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	}
+	fscanf(file,"%s", &lixoN);
+	if(classe == 3){
+		fscanf(file,"%d %d %d %d %d %d %d", &HP, &danoMaximo, &danoMinimo, &velocidadeMaxima, &velocidadeMinima, &criticoChance, &criticoDano);
+	}
+	else{
+		fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	}
+	fscanf(file,"%s", &lixoN);
+	if(classe == 4){
+		fscanf(file,"%d %d %d %d %d %d %d", &HP, &danoMaximo, &danoMinimo, &velocidadeMaxima, &velocidadeMinima, &criticoChance, &criticoDano);
+	}
+	else{
+		fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	}
+	fscanf(file,"%s", &lixoN);
+	if(classe == 5){
+		fscanf(file,"%d %d %d %d %d %d %d", &HP, &danoMaximo, &danoMinimo, &velocidadeMaxima, &velocidadeMinima, &criticoChance, &criticoDano);
+	}
+	else{
+		fscanf(file,"%d %d %d %d %d %d %d", &lixo, &lixo, &lixo, &lixo, &lixo, &lixo, &lixo);
+	}
+	
+	fclose(file);
+	
+	
+	file = fopen("data\\provisorio\\monstros.txt","r");
+	contador = 0;
+	while(contador < monstro1IP){
+		fscanf(file,"%s %s %s %s %s %s", &lixoN, &lixoN, &lixoN, &lixoN, &lixoN, &lixoN);
+		contador = contador + 1;
+	}
+	fscanf(file,"%s %s %s %s %s %s", &lixoN, &lixoN, &lixoN, &lixoN, &lixoN, &lixoN);
+	fclose(file);
+	
+	file = fopen("data\\provisorio\\monstros.txt","r");
+	contador = 0;
+	while(contador < monstro2IP){
+		fscanf(file,"%s %s %s %s %s %s", &lixoN, &lixoN, &lixoN, &lixoN, &lixoN, &lixoN);
+		contador = contador + 1;
+	}
+	fscanf(file,"%s %s %s %s %s %s", &lixoN, &lixoN, &lixoN, &lixoN, &lixoN, &lixoN);
+	fclose(file);
+	
+	printf("Este é um protrotico de um sitem de com bate para um jogo\n\n    Presione qualquer botão para continuar");
+	escolha = getch();
+	system("cls");
+
+	while(a == 1){
+		
+		selecionado = 0;
+		vez = 0;
+		vezMonstro1 = 0;
+		vezMonstro2 = 0;
+		manter = 1;
+		alvo = 0;
+		// Barras de Turno
+		while(manter == 1){
+			system("cls");
+			// Barra do Jogador
+			printf("[");
+			estatos = 0;
+	    		while(estatos <= progresoP && estatos<2000){
+	    			if((progresoP - estatos) >= 100){
+	    				printf("*");
+					}
+	    			estatos=estatos+100;
+			}
+			estatos = 2000;
+			while(estatos > progresoP){
+	    			printf(" ");
+	    			estatos = estatos -100;
+			}
+			printf("]");
+	  		printf("    %s: %d", nome, HP);
+	  		printf("\n");
+	  		// -
+	  		// Barra do Primero monstro
+			if(MonstroHP1 > 0){
+				printf("[");
+				estatos = 0;
+		    		while(estatos < progresoM1 && estatos < 2000){
+		    			if((progresoM1 - estatos) >= 100){
+		    				printf("*");
+						}
+		    			estatos = estatos + 100;
+				}
+				estatos = 2000;
+				while(estatos > progresoM1){
+		    			printf(" ");
+		    			estatos = estatos - 100;
+				}
+				printf("]");
+		  		printf("    %s: %d hp", nomeMonstro1, MonstroHP1);
+			}
+			// -
+			printf("\n");
+			// Barra do segundo monstro
+			if(MonstroHP2 > 0){
+				printf("[");
+				estatos = 0;
+		    		while(estatos < progresoM2 && estatos < 2000){
+		    			if((progresoM2 - estatos) >= 100){
+		    				printf("*");
+						}
+		    			estatos = estatos +100;
+				}
+				estatos = 2000;
+				while(estatos > progresoM2){
+		    			printf(" ");
+		    			estatos = estatos -100;
+				}
+				printf("]");
+				printf("    %s: %d hp", nomeMonstro2, MonstroHP2);
+			}
+			//-
+			// Tempo entre carregamento de barra
+	  		Sleep(intervalo);
+	  		// -
+	  		// Quebra de loop ao completar barra
+	  			//Jogador
+			if(progresoP >= 2000){
+				vez = 1;
+				progresoP = 0;
+				manter = 0;
+			}
+				// -
+				// Primeriro monstro
+			if(progresoM1 >= 2000){
+				vezMonstro1 = 1;
+				progresoM1 = 0;
+				manter = 0;
+			}
+				// -
+				// Segundo monstro
+			if(progresoM2 >= 2000){
+				vezMonstro2 = 1;
+				progresoM2 = 0;
+				manter = 0;
+			}
+			//-
+			// Progreso da Barra
+			progresoP = progresoP + (rand() %(1 + velocidadeMaxima - velocidadeMinima)) + velocidadeMinima;
+			progresoM1 = progresoM1 + (rand() %(1 + velocidadeMaximaMonstro1 - velocidadeMinimaMonstro1)) + velocidadeMinimaMonstro1;
+			progresoM2 = progresoM2 + (rand() %(1 + velocidadeMaximaMonstro2 - velocidadeMinimaMonstro2)) + velocidadeMinimaMonstro2;
+			//-
+			// Anula qualque entrada durante o caregamento das barras
+			while(kbhit()){
+   				escolha = getch();
+   			}
+			// -
+		}
+		// -
+		while(kbhit()){
+   			escolha = getch();
+   		}
+		// Menu de ações
+		if(vez == 1){
+			manterMenu = 1;
+			selecionado = 0;
+			selecao = 1;
+			critico = 0;
+			while(manterMenu == 1){
+				printf("\n-- \n");
+				printf("hp: %d \n",HP);
+				if(selecao == 1){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf(" Atacar\n");
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				if(selecao == 2){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf(" Defender\n");
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				if(selecao == 3){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf(" Magia \n");
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				printf(" \n");
+				
+				escolha = getch();
+	   			
+	
+				if(escolha == 'w' && selecao > 1){
+					selecao = selecao - 1;
+				}
+				else if(escolha == 's' && selecao < 3){
+					selecao = selecao + 1;
+				}
+				else if(escolha == 32){
+					selecionado = selecao;
+				}
+				else{
+					
+				}
+				if(selecionado == 1){
+					manterMenu = 0;
+					acao = 1;
+				}
+				else if(selecionado == 2){
+					manterMenu = 0;
+					acao = 2;
+				}
+				else if(selecionado == 3){
+					printf("Esta opção não esta desponivel no momento\n");
+					escolha = getch();
+					
+				}
+				else{
+			
+				}
+				system("cls");
+			}
+		}
+		// -
+		system("cls");
+
+		if(vez == 1){
+			dano = (rand() %(1 + danoMaximo - danoMinimo)) + danoMinimo;
+		}
+		if(magia != 0){
+			dano = (dano * danoMagico) / 100;
+		}
+		if(criticoChance > rand() %100){
+			critico = 1;
+		}
+		if(critico == 1){
+			dano = (dano * criticoDano) / 100;
+		}
+		if(vezMonstro1 == 1){
+			danoBat1 =(rand() %(1 + danoMaximoMonstro1 - danoMinimoMonstro1)) + danoMinimoMonstro1;
+		}
+		if(vezMonstro2 == 1){
+			danoBat2 = (rand() %3) + 2;
+		}
+		if(selecionado == 2){
+			danoBat1 = danoBat1 / 2;
+			danoBat2 = danoBat2 / 2;
+		}
+		// menu de escolha de alvo
+		if(selecionado == 1){
+			selecionado = 0;
+			selecao = 1;
+			manterMenu = 1;
+			while(manterMenu == 1){
+				printf("Escolha seu alvo\n\n");
+				if(selecao == 1){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf("1- %s: %d \n", nomeMonstro1, MonstroHP1);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				if(selecao == 2){
+					SetConsoleTextAttribute(hConsole, cor);
+				}
+				printf("2- %s: %d \n", nomeMonstro2, MonstroHP2);
+				SetConsoleTextAttribute(hConsole, saved_attributes);
+				
+				escolha = getch();
+	   			
+	
+				if(escolha == 'w' && selecao > 1){
+					selecao = selecao - 1;
+				}
+				else if(escolha == 's' && selecao < 2){
+					selecao = selecao + 1;
+				}
+				else if(escolha == 32){
+					selecionado = selecao;
+				}
+				else{
+					
+				}
+				if(selecionado == 1){
+					if(MonstroHP1 > 0){
+						manterMenu = 0;
+						alvo = 1;
+					}
+					else{
+						printf("%s já esta morto", nomeMonstro1);
+					}
+
+				}
+				else if(selecionado == 2){
+					if(MonstroHP2 > 0){
+						manterMenu = 0;
+						alvo = 2;
+					}
+					else{
+						printf("%s já esta morto", nomeMonstro2);
+					}
+				}
+				else{
+			
+				}
+				system("cls");
+			}
+				
+			if (alvo == 1){
+				MonstroHP1 = MonstroHP1 - dano;
+			}
+			if (alvo == 2){
+				MonstroHP2 = MonstroHP2 - dano;
+			}	
+			if(MonstroHP1 < 0){
+				MonstroHP1 = 0;
+			}
+			if(MonstroHP2 < 0){
+				MonstroHP2 = 0;
+			}
+		}
+		// -
+		if(MonstroHP1 > 0 && vezMonstro1 == 1){
+			HP = HP - danoBat1;
+			
+		}
+		if(MonstroHP2 > 0 && vezMonstro2 == 1){
+			HP = HP - danoBat2;
+			
+		}
+	
+		system("cls");
+		if(MonstroHP1 > 0 && vezMonstro1 == 1){
+			printf("%s dano: %d \n", nomeMonstro1, danoBat1);
+			escolha = getch();
+		}
+		if(MonstroHP2 > 0 && vezMonstro2 == 1){
+			printf("%s dano: %d \n", nomeMonstro2, danoBat2);
+			escolha = getch();
+		}
+		if(critico == 1 && alvo != 0){
+			printf("Critico!/n");
+		}
+		if(alvo == 1 && vez == 1){
+			printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMonstro1, MonstroHP1);
+			escolha = getch();
+		}
+		if(alvo == 2 && vez == 1){
+			printf("voce causou %d de na em %s ele tem %d agora\n ", dano, nomeMonstro2, MonstroHP2);
+			escolha = getch();
+		}
+		system("cls");
+
+		if(HP<1) {
+			a = 0;
+			printf("you died \n");
+			escolha = getch();
+			retorno = 0;
+		}
+		else if (MonstroHP1 < 1 && MonstroHP2 < 1){
+			a = 0;
+			printf("you win! \n");
+			escolha = getch();
+			retorno = 2;
+			
+		}
+		
+		
+	}
+	return(retorno);
+}
+
+int historia(int saveIP){
+	
+	
+	int npc;
+	int mapa = 1;
+	int manter;
+	int numero;
+	char nome[100];
+	
+	int testeX;
+	int testeY;
+	
+	int erro;
+	int contador; 
+	int contador2;
+	 
+	file = fopen("data\\provisorio\\classe.txt","r");
 	manter = 1;
 	while(manter == 1 && erro == 0){
-		fscanf(file,"%s",&lixo);
-		if(lixo[0] = '/' && lixo[1] = '/'){
+		fscanf(file,"%s",&nome);
+		if(nome[0] == '/' && nome[1] == '/' && nome[2] == '/'){
 			manter = 0;
 			erro = 1;
 		}
-		else{
-			fscanf(file,"%d",&nome);
+		else if(nome[0] == '/' && nome[1] == '/'){
+			fscanf(file,"%d",&numero);
+			fscanf(file,"%s",&nome);
+			fscanf(file,"%s",&nome);
+			if(numero == mapa){
+				manter = 0;
+			}
+		}
+	}
+	
+	contador = 0;
+	manter = 1;
+	while(manter == 1){
+		fscanf(file,"%s",&nome);
+		if(nome[0] == '/' && nome[1] == '/'){
+			manter = 0;
+			erro = 1;
+		}
+		else if(nome[0] == '/'){
+			fscanf(file,"%s",&nome);
+			fscanf(file,"%s",&nome);
+			contador = contador + 1;
+		}
+		else if(nome[0] == ':'){
+			fscanf(file,"%d",&npc); 
+			fscanf(file,"%d",&testeX);
+			fscanf(file,"%d",&testeY);	
+		}
+		if(testeX == eixoX && testeY == eixoY){
+			manter = 0;
+		}
+	}
+	
+	fclose(file);
+	
+	if(contador == 1){
+		
+	}
+	else if(contador == 2){
+		
+	}
+	else if(contador == 3){
+		
+	}
+	
+	// se evento
+	if(){
+		// checar evento
+		// checar se evento ja aconteceu
+		// checar roteiro do evento 
+		// realizar evento 
+	}
+	// se npc
+	if(){
+		// checar npc
+		// checar se o npc ja foi contatado
+		// checar roteiro do npc
+		// imprime os dialogos
+	}
+	
+	// mandar kogadoe paa o mapa ou combate
+}
+
+int mundoSave(int saveIP){
+	
+	
+	
+	int manter;
+	char nome[100];
+	
+	file = fopen("data\\provisorio\\classe.txt","r");
+	if(saveIP == 1){
+		file1 = fopen("save\\save1\\mundo_save.txt","w");	
+	}
+	else if(saveIP == 2){
+		file1 = fopen("save\\save2\\mundo_save.txt","w");
+	}
+	else if(saveIP == 3){
+		file1 = fopen("save\\save3\\mundo_save.txt","w");
+	}
+	
+	
+	
+	manter = 1;
+	while(manter == 1){
+		fscanf(file,"%s", &nome);
+		if(nome[0] == '/' && nome[1] == '/' && nome[2] == '/'){
+			fprintf(file1, "\n\n///");
+			manter = 0;
+		}
+		else if(nome[0] == '/' && nome[1] == '/'){
+			fscanf(file,"%d", &numero);
+			fprintf(file1,"// ");
+			fprintf(file1,"%d \n\n", numero);
+			cont = 0;
+		}
+		else if(nome[0] == '/')){
+			if(cont > 3){
+				fprintf(file1, "/ ");
+			}
+			cont ++;
+		}
+		else if(':'){
+			if(cont > 3){
+				fprintf(file1, "1 ");
+			}
 		}
 	}
 }
-
-int introducao(){
-	printf("****************************************\n");
-	printf("****************************************\n");
-	printf("Voce retoma a consiencia, sente aguas nos pes e areia na sua cara, voce se levanta lentantamnte e obiserva o  terendo em vouta .\n");
+//int introducao(){
+//	printf("****************************************\n");
+//	printf("****************************************\n");
+//	printf("Voce retoma a consiencia, sente aguas nos pes e areia na sua cara, voce se levanta lentantamnte e obiserva o  terendo em vouta .\n");
 	
-}
+//}
