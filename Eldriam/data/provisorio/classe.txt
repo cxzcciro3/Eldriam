@@ -1,0 +1,9 @@
+Guerreiro  200 30 15 150 100  5 150
+Arqueiro   250 20 10 150 100 10 200
+Mago       150 30 20 150 100  5 150
+Ladrão     150 40 35 150 100 15 200
+Templario  200 45 25 150 100 25 200
+//          hp DM Dm  VM  Vm CC DaC
+//
+
+-- classe, hp, dano maximo, dano minimo, velocidade maxima, velocidade minima, chace de critico, dano critico --
